@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Candy Shack Pickup — Kreeze Candies</title>
+<meta name="description" content="Order online and skip the line. Pick up your freeze-dried Kreeze Candies fresh at the Candy Shack — no shipping, no waiting.">
+<meta property="og:title" content="Candy Shack Pickup — Kreeze Candies">
+<meta property="og:description" content="Order online and skip the line. Pick up your freeze-dried Kreeze Candies fresh at the Candy Shack — no shipping, no waiting.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="emoji">🍭</span>Kreeze <span class="accent">Candies</span></a>
+    <nav class="nav">
+      <a href="index.html" >Home</a>
+      <a href="shop.html" >Shop</a>
+      <a href="pickup.html" class="active">Candy Shack Pickup</a>
+    </nav>
+    <div class="header-actions">
+      <div class="cart-wrap">
+        <button class="icon-btn" aria-label="Open cart" onclick="openDrawer()">🛒</button>
+        <span class="cart-count" style="display:none">0</span>
+      </div>
+      <button class="icon-btn hamburger" aria-label="Menu" onclick="toggleMobileNav()">☰</button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="pickup.html">Candy Shack Pickup</a>
+  </nav>
+</header>
+
+<section class="section" style="padding-bottom:2rem">
+  <div class="container hero-grid">
+    <div>
+      <span class="chip">📍 Local Only</span>
+      <h1 style="font-family:'Fredoka',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);line-height:.95;margin-top:1.25rem">Candy Shack <span style="color:var(--coral)">Pickup</span></h1>
+      <p style="margin-top:1.25rem;color:var(--muted);font-size:1.1rem;max-width:32rem">The Candy Shack is where the magic drops. Order online, skip the line, and pick up your treats fresh — the second they're bagged.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="shop.html">Start Ordering</a>
+        <div class="hours">
+          <p class="lbl">Shack Hours</p>
+          <p>Mon – Fri: 10am – 6pm</p>
+          <p>Sat – Sun: 11am – 4pm</p>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;height:320px">
+      <div style="position:absolute;inset:0;border-radius:1.5rem;border:2px solid var(--ink);overflow:hidden;box-shadow:var(--shadow-pop);background:var(--pink)">
+        <img src="images/730332940_1013072911694565_5208425717835.jpg" alt="Fresh freeze-dried Kreeze Candies" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <span style="position:absolute;top:-16px;left:-16px;background:var(--sunshine);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:1.1rem;transform:rotate(-6deg);box-shadow:var(--shadow-pop)">The Candy Shack</span>
+      <span style="position:absolute;bottom:-16px;right:24px;background:var(--cream);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:.9rem;transform:rotate(3deg);box-shadow:var(--shadow-pop)">Skip. The. Line.</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 style="text-align:center">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="ic c1">🛍</div><h3>1. Build your bag</h3><p>Browse the shop and load up your favorites. Every bag is freeze-dried in small batches.</p></div>
+      <div class="step"><div class="ic c2">📍</div><h3>2. Choose Local Pickup</h3><p>Local Pickup is the default at checkout — no shipping fees, no waiting for a courier.</p></div>
+      <div class="step"><div class="ic c3">🔔</div><h3>3. We prep it fresh</h3><p>We'll pack your order the moment it's placed and text you when it's ready at the shack.</p></div>
+      <div class="step"><div class="ic c4">🎉</div><h3>4. Skip the line</h3><p>Walk straight up to the Candy Shack, say your name, grab your bag, and crunch away.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="faq-card">
+      <div class="faq">
+        <h2 style="font-family:'Fredoka',sans-serif">FAQ, quick and sweet.</h2>
+        <div><h4>Do you ship?</h4><p>Right now, we're 100% Candy Shack pickup. It keeps the candy at peak crunch.</p></div>
+        <div><h4>When will my order be ready?</h4><p>Most orders are packed the same day. We'll text you the moment your bag is ready to grab.</p></div>
+        <div><h4>Where is the Candy Shack?</h4><p>We're at 1234 Main St, Machias — open Mon–Fri 10am–6pm and Sat–Sun 11am–4pm.</p></div>
+      </div>
+      <div style="text-align:center">
+        <div style="border-radius:1.5rem;overflow:hidden;border:2px solid var(--ink);box-shadow:var(--shadow-pop)">
+          <img src="images/715551053_993459183655938_13445077808929.jpg" alt="Kreeze Candies freeze-dried treats" style="width:100%;height:200px;object-fit:cover">
+        </div>
+        <p style="margin-top:1rem;font-size:.9rem;color:color-mix(in oklab,var(--cream) 80%,transparent)">Questions? Message us on Facebook — we answer fast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <h5>Kreeze Candies</h5>
+        <p>Small-batch, freeze-dried candy — packed fresh and ready at the Candy Shack.</p>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li>1234 Main St, Machias</li>
+          <li>Mon – Fri: 10am – 6pm</li>
+          <li>Sat – Sun: 11am – 4pm</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="shop.html">All Candy</a></li>
+          <li><a href="pickup.html">How Pickup Works</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 Kreeze Candies · Local Candy Shack Pickup Only</p>
+  </div>
+</footer>
+
+<div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <div class="drawer-head">
+    <h3>Your Bag</h3>
+    <button class="icon-btn" aria-label="Close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><span id="drawer-total">$0.00</span></div>
+    <p style="font-size:.8rem;color:var(--muted);text-align:center">Made fresh at home for local pickup.</p>
+    <button class="btn btn-primary btn-lg" onclick="checkout()">Checkout</button>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body></html>

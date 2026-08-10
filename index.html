@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kreeze Candies — Freeze-Dried Candy, Candy Shack Pickup</title>
+<meta name="description" content="Small-batch freeze-dried candy from Kreeze Candies. Order online and pick up fresh at the Candy Shack in Machias — skip the line.">
+<meta property="og:title" content="Kreeze Candies — Freeze-Dried Candy, Candy Shack Pickup">
+<meta property="og:description" content="Small-batch freeze-dried candy from Kreeze Candies. Order online and pick up fresh at the Candy Shack in Machias — skip the line.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="emoji">🍭</span>Kreeze <span class="accent">Candies</span></a>
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html" >Shop</a>
+      <a href="pickup.html" >Candy Shack Pickup</a>
+    </nav>
+    <div class="header-actions">
+      <div class="cart-wrap">
+        <button class="icon-btn" aria-label="Open cart" onclick="openDrawer()">🛒</button>
+        <span class="cart-count" style="display:none">0</span>
+      </div>
+      <button class="icon-btn hamburger" aria-label="Menu" onclick="toggleMobileNav()">☰</button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="pickup.html">Candy Shack Pickup</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="chip">❄ Freeze-Dried Fresh</span>
+      <h1>Welcome to <span class="coral">Kreeze</span> <span class="underline-wrap">Candies</span></h1>
+      <p>We turn your favorite candy into crunchy, puffy, flavor-packed clouds. Order online, skip the line, and grab your bag at the Candy Shack.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="shop.html">Shop the Crunch →</a>
+        <a class="btn btn-lg" href="pickup.html">📍 How Pickup Works</a>
+      </div>
+    </div>
+    <div class="photo-stack">
+      <div class="center-round"><div><img src="images/730332940_1013072911694565_5208425717835.jpg" alt="Assorted freeze-dried candy"></div></div>
+      <div class="card stack-1"><img src="images/649575066_921770414158149_59830972209951.jpg" alt="Freeze-dried Skittles"></div>
+      <div class="card stack-2"><img src="images/487408330_639204565748070_26751356890038.jpg" alt="Freeze-dried sprinkle candy"></div>
+      <div class="card stack-3"><img src="images/672688164_957188410616349_50048273686069.jpg" alt="Freeze-dried candy wafers"></div>
+    </div>
+  </div>
+</section>
+
+<section class="perkbar">
+  <div class="container perkbar-inner">
+    <span><span class="dot-y">⚡</span> Small-batch freeze-dried</span>
+    <span><span class="dot-c">📍</span> Local Candy Shack pickup</span>
+    <span><span class="dot-e">❄</span> Skip the line, order online</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">This week's crunch</span>
+        <h2>Featured Candy</h2>
+      </div>
+      <a class="btn" href="shop.html">See all →</a>
+    </div>
+    <div class="grid" id="product-grid"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta">
+      <div>
+        <h2>Order online. Skip the line. Grab & crunch.</h2>
+        <p>Every order is packed fresh and ready when you are — right at the Candy Shack. No shipping, no waiting.</p>
+        <div class="cta-actions">
+          <a class="btn btn-dark btn-lg" href="shop.html">Start Your Bag</a>
+          <a class="btn btn-lg" style="background:var(--sunshine)" href="pickup.html">Pickup Details</a>
+        </div>
+      </div>
+      <div class="cta-photo">
+        <div class="frame"><img src="images/715551053_993459183655938_13445077808929.jpg" alt="Freeze-dried candy assortment"></div>
+        <span class="tag">Candy Shack</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <span class="eyebrow">Straight from the freezer</span>
+    <h2 style="margin-bottom:2rem">The Crunch Gallery</h2>
+    <div class="gallery">
+      <img src="images/548299863_776130358722156_34441842661384.jpg" alt="Freeze-dried candy close-ups">
+      <img src="images/729375854_1014027198265803_6902006612382.jpg" alt="Assorted freeze-dried candies">
+      <img src="images/715551053_993459183655938_13445077808929.jpg" alt="Freeze-dried candy variety">
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <h5>Kreeze Candies</h5>
+        <p>Small-batch, freeze-dried candy — packed fresh and ready at the Candy Shack.</p>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li>1234 Main St, Machias</li>
+          <li>Mon – Fri: 10am – 6pm</li>
+          <li>Sat – Sun: 11am – 4pm</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="shop.html">All Candy</a></li>
+          <li><a href="pickup.html">How Pickup Works</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 Kreeze Candies · Local Candy Shack Pickup Only</p>
+  </div>
+</footer>
+
+<div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <div class="drawer-head">
+    <h3>Your Bag</h3>
+    <button class="icon-btn" aria-label="Close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><span id="drawer-total">$0.00</span></div>
+    <p style="font-size:.8rem;color:var(--muted);text-align:center">Made fresh at home for local pickup.</p>
+    <button class="btn btn-primary btn-lg" onclick="checkout()">Checkout</button>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body></html>

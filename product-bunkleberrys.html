@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bunkleberrys — Kreeze Candies</title>
+<meta name="description" content="The freeze-dried treat formerly known as skittles — puffed into crunchy, fruity clouds that shatter with flavor.">
+<meta property="og:title" content="Bunkleberrys — Kreeze Candies">
+<meta property="og:description" content="The freeze-dried treat formerly known as skittles — puffed into crunchy, fruity clouds that shatter with flavor.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="emoji">🍭</span>Kreeze <span class="accent">Candies</span></a>
+    <nav class="nav">
+      <a href="index.html" >Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="pickup.html" >Candy Shack Pickup</a>
+    </nav>
+    <div class="header-actions">
+      <div class="cart-wrap">
+        <button class="icon-btn" aria-label="Open cart" onclick="openDrawer()">🛒</button>
+        <span class="cart-count" style="display:none">0</span>
+      </div>
+      <button class="icon-btn hamburger" aria-label="Menu" onclick="toggleMobileNav()">☰</button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="pickup.html">Candy Shack Pickup</a>
+  </nav>
+</header>
+
+<section class="container pdp">
+  <div class="imgwrap"><img src="images/Skittles_Original.webp" alt="Bunkleberrys"></div>
+  <div>
+    <a href="shop.html" style="color:var(--muted);font-size:.85rem">← Back to shop</a>
+    <h1>Bunkleberrys</h1>
+    <span class="chip" style="margin-top:1rem">4oz</span>
+    <div class="price">$6.00</div>
+    <p class="desc">The freeze-dried treat formerly known as skittles — puffed into crunchy, fruity clouds that shatter with flavor.</p>
+    <p style="margin-top:1rem;font-size:.9rem;color:var(--muted)">Made fresh at home for local Candy Shack pickup.</p>
+    <div class="actions">
+      <div class="qty">
+        <button onclick="const q=document.getElementById('qty');q.textContent=Math.max(1,+q.textContent-1)">−</button>
+        <span id="qty">1</span>
+        <button onclick="const q=document.getElementById('qty');q.textContent=+q.textContent+1">+</button>
+      </div>
+      <button class="btn btn-primary btn-lg" onclick="cart.add('bunkleberrys',+document.getElementById('qty').textContent)">Add to Bag</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <h5>Kreeze Candies</h5>
+        <p>Small-batch, freeze-dried candy — packed fresh and ready at the Candy Shack.</p>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li>1234 Main St, Machias</li>
+          <li>Mon – Fri: 10am – 6pm</li>
+          <li>Sat – Sun: 11am – 4pm</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="shop.html">All Candy</a></li>
+          <li><a href="pickup.html">How Pickup Works</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 Kreeze Candies · Local Candy Shack Pickup Only</p>
+  </div>
+</footer>
+
+<div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <div class="drawer-head">
+    <h3>Your Bag</h3>
+    <button class="icon-btn" aria-label="Close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><span id="drawer-total">$0.00</span></div>
+    <p style="font-size:.8rem;color:var(--muted);text-align:center">Made fresh at home for local pickup.</p>
+    <button class="btn btn-primary btn-lg" onclick="checkout()">Checkout</button>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body></html>
