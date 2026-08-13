@@ -170,3 +170,22 @@ a{color:inherit;text-decoration:none}
 .drawer-foot{padding:1.25rem;border-top:2px solid var(--ink);display:flex;flex-direction:column;gap:.75rem}
 .total{display:flex;justify-content:space-between;font-family:"Fredoka",sans-serif;font-size:1.3rem}
 .empty{text-align:center;padding:2rem;color:var(--muted)}
+
+/* Mobile Screen Optimizations */
+@media (max-width: 767px) {
+  .drawer {
+    width: 100% !important; /* Full width on mobile */
+    max-width: 100% !important;
+  }
+  
+  /* Prevent auto-zoom on iPhone input focus */
+  input[type="text"], select {
+    font-size: 16px !important;
+  }
+  
+  /* Ensure smooth scrolling inside drawer when phone keyboard is open */
+  .drawer-body {
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 70px);
+  }
+}

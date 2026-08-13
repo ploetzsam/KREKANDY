@@ -16,7 +16,7 @@ window.PRODUCTS = window.PRODUCTS || [
     description: "Happy Rancheros - same bold flavor, no dental drama." },
 ];
 
-// Cart (using var to prevent redeclaration errors if loaded twice)
+// Cart
 var CART_KEY = "kreeze-cart";
 var cart = {
   items: JSON.parse(localStorage.getItem(CART_KEY) || "[]"),
@@ -122,7 +122,7 @@ function processOrder(event) {
     return `- ${title} (x${item.qty}) — $${(price * item.qty).toFixed(2)}`;
   }).join("\n");
 
-  // Custom configuration for each payment service
+  // Payment configuration
   let appName = "";
   let handle = "";
   let payUrl = "";
@@ -168,7 +168,7 @@ function processOrder(event) {
       });
   }
 
-  // Update confirmation screen displays
+  // Populate confirmation display
   if (document.getElementById("conf-order-id")) document.getElementById("conf-order-id").innerText = `#${orderId}`;
   if (document.getElementById("conf-total")) document.getElementById("conf-total").innerText = totalFormatted;
   if (document.getElementById("conf-app-name")) document.getElementById("conf-app-name").innerText = appName;
@@ -176,7 +176,6 @@ function processOrder(event) {
   if (document.getElementById("conf-amount")) document.getElementById("conf-amount").innerText = totalFormatted;
   if (document.getElementById("conf-pay-id")) document.getElementById("conf-pay-id").innerText = `#${orderId}`;
 
-  // Update the direct button link and text
   const payBtn = document.getElementById("pay-direct-link");
   if (payBtn) {
     payBtn.innerText = `Pay $${numericAmount} on ${appName}`;
@@ -199,6 +198,7 @@ function processOrder(event) {
     submitBtn.innerText = "Place Order & Get Payment Details";
   }
 }
+
 // Product grid renderer
 function renderProductGrid(targetId) {
   const el = document.getElementById(targetId);
