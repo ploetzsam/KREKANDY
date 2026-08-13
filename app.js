@@ -16,7 +16,7 @@ window.PRODUCTS = window.PRODUCTS || [
     description: "Happy Rancheros - same bold flavor, no dental drama." },
 ];
 
-// Cart
+// Cart with Quantity Adjuster Controls
 var CART_KEY = "kreeze-cart";
 var cart = {
   items: JSON.parse(localStorage.getItem(CART_KEY) || "[]"),
@@ -27,6 +27,24 @@ var cart = {
     const ex = this.items.find(i => i.handle === handle);
     if (ex) ex.qty += qty; else this.items.push({ handle, qty });
     this.save(); openDrawer();
+  },
+  increase(handle) {
+    const ex = this.items.find(i => i.handle === handle);
+    if (ex) {
+      ex.qty += 1;
+      this.save();
+    }
+  },
+  decrease(handle) {
+    const ex = this.items.find(i => i.handle === handle);
+    if (ex) {
+      ex.qty -= 1;
+      if (ex.qty <= 0) {
+        this.remove(handle);
+      } else {
+        this.save();
+      }
+    }
   },
   remove(handle) { this.items = this.items.filter(i => i.handle !== handle); this.save(); },
   clear() { this.items = []; this.save(); },
@@ -53,8 +71,13 @@ var cart = {
           <img src="${p ? p.image : ''}" alt="${title}">
           <div class="info">
             <strong>${title}</strong>
-            <span class="p">$${price.toFixed(2)} · qty ${i.qty}</span>
-            <button class="rm" onclick="cart.remove('${i.handle}')">Remove</button>
+            <span class="p">$${price.toFixed(2)}</span>
+            <div class="cart-qty-wrap">
+              <button class="cart-qty-btn" type="button" onclick="cart.decrease('${i.handle}')">−</button>
+              <span class="cart-qty-num">${i.qty}</span>
+              <button class="cart-qty-btn" type="button" onclick="cart.increase('${i.handle}')">+</button>
+              <button class="rm" type="button" style="margin-left:auto" onclick="cart.remove('${i.handle}')">Remove</button>
+            </div>
           </div>
         </div>`;
       }).join("");

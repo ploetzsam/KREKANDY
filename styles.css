@@ -189,3 +189,39 @@ a{color:inherit;text-decoration:none}
     max-height: calc(100vh - 70px);
   }
 }
+
+/* Cart Item Quantity Control Styling */
+.cart-qty-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.cart-qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cart-qty-btn:active {
+  background: var(--coral);
+  transform: scale(0.95);
+}
+
+.cart-qty-num {
+  font-weight: 700;
+  font-size: 0.95rem;
+  min-width: 18px;
+  text-align: center;
+}
