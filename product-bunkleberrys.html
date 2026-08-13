@@ -24,6 +24,7 @@
       <a href="index.html" >Home</a>
       <a href="shop.html" class="active">Shop</a>
       <a href="pickup.html" >Candy Shack Pickup</a>
+      <a href="about.html" >about</a>
     </nav>
     <div class="header-actions">
       <div class="cart-wrap">
@@ -37,6 +38,7 @@
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <a href="pickup.html">Candy Shack Pickup</a>
+    <a href="about.html" >about</a>
   </nav>
 </header>
 
@@ -70,9 +72,9 @@
       <div>
         <h5>Visit</h5>
         <ul>
-          <li>1234 Main St, Machias</li>
-          <li>Mon – Fri: 10am – 6pm</li>
-          <li>Sat – Sun: 11am – 4pm</li>
+          <li>8435 Route 240, Machias, NY 14101</li>
+          <li>Hours:</li>
+          <li>TBD</li>
         </ul>
       </div>
       <div>
@@ -114,30 +116,39 @@
   
   <div class="drawer-body" id="checkout-body" style="overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2rem;">
     <!-- Step A: Customer Contact Form -->
-    <form id="checkout-form" onsubmit="processOrder(event)">
-      <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your Candy Shack pickup!</p>
-      
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
-        <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-      </div>
+<form id="checkout-form" onsubmit="processOrder(event)">
+  <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your Candy Shack pickup!</p>
+  
+  <!-- Full Name -->
+  <div style="margin-bottom: 1rem;">
+    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
+    <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+  </div>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number or Email</label>
-        <input type="text" id="cust-contact" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-      </div>
+  <!-- Email Address -->
+  <div style="margin-bottom: 1rem;">
+    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
+    <input type="email" id="cust-email" required placeholder="name@example.com" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+  </div>
 
-      <div style="margin-bottom: 1.25rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
-        <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
-          <option value="venmo">Venmo (@Carrie-Bunk)</option>
-          <option value="cashapp">Cash App ($CarrieBunk)</option>
-          <option value="paypal">PayPal (paypal.me/krecandy)</option>
-        </select>
-      </div>
+  <!-- Phone Number -->
+  <div style="margin-bottom: 1rem;">
+    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
+    <input type="tel" id="cust-phone" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+  </div>
 
-      <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
-    </form>
+  <!-- Payment Method -->
+  <div style="margin-bottom: 1.25rem;">
+    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
+    <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
+      <option value="venmo">Venmo (@Carrie-Bunk)</option>
+      <option value="cashapp">Cash App ($CarrieBunk)</option>
+      <option value="paypal">PayPal (paypal.me/krecandy)</option>
+    </select>
+  </div>
+
+  <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
+</form>
 
     <!-- Step B: Confirmation Screen -->
     <div id="confirmation-screen" style="display:none; text-align: center;">
