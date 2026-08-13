@@ -131,8 +131,15 @@ function processOrder(event) {
 
   const orderNum = Math.floor(1000 + Math.random() * 9000);
   const orderId = `KC-${orderNum}`;
+  
+  // Grab name, email, and phone from the form inputs
   const name = document.getElementById("cust-name")?.value || "Customer";
-  const contact = document.getElementById("cust-contact")?.value || "N/A";
+  const email = document.getElementById("cust-email")?.value || "N/A";
+  const phone = document.getElementById("cust-phone")?.value || "N/A";
+  
+  // Combine email & phone for backward compatibility with older template tags
+  const contactCombined = `Email: ${email} | Phone: ${phone}`;
+  
   const selectedMethod = document.getElementById("payment-method")?.value || "venmo";
   const totalFormatted = "$" + cart.total().toFixed(2);
   const numericAmount = cart.total().toFixed(2);
@@ -171,11 +178,13 @@ function processOrder(event) {
       break;
   }
 
-  // Email parameters
+  // Send parameters matching all potential EmailJS template variable names
   const templateParams = {
     order_id: orderId,
     customer_name: name,
-    customer_contact: contact,
+    customer_email: email,
+    customer_phone: phone,
+    customer_contact: contactCombined, // Fallback for older {{customer_contact}} tag
     payment_method: appName,
     order_total: totalFormatted,
     order_items: itemsList
@@ -221,7 +230,6 @@ function processOrder(event) {
     submitBtn.innerText = "Place Order & Get Payment Details";
   }
 }
-
 // Product grid renderer
 function renderProductGrid(targetId) {
   const el = document.getElementById(targetId);
