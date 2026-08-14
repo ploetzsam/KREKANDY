@@ -190,28 +190,34 @@
 
   <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
 </form>
-    <!-- Step B: Confirmation Screen -->
-    <div id="confirmation-screen" style="display:none; text-align: center;">
-      <span style="font-size: 2.5rem;">🎉</span>
-      <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
-      <p style="font-size: .9rem;">Your order has been sent to our Candy Shack team.</p>
+   <!-- Step B: Confirmation Screen -->
+<div id="confirmation-screen" style="display:none; text-align: center;">
+  <span style="font-size: 2.5rem;">🎉</span>
+  <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
+  <p style="font-size: .9rem;">Your order has been sent to our Candy Shack team.</p>
 
-      <div style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
-        <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id" style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
-        <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total" style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
-        <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
-        <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
-        <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
-          <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
-          <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
-          <li>Amount: <strong id="conf-amount">$0.00</strong></li>
-          <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
-        </ol>
-      </div>
-
-      <a id="pay-direct-link" href="#" target="_self" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block;">Open Payment App</a>
-    </div>
+  <div style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
+    <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id" style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
+    <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total" style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
+    <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
+    <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
+    <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
+      <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
+      <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
+      <li>Amount: <strong id="conf-amount">$0.00</strong></li>
+      <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
+    </ol>
   </div>
+
+  <a id="pay-direct-link" href="#" target="_self" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
+
+  <!-- Failsafe Contact Box -->
+  <div style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
+    <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
+    <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>
+    <a href="tel:7165727980" style="color: var(--coral); font-weight: 800; font-size: 1.05rem; text-decoration: underline;">(716) 572-7980</a>
+  </div>
+</div>
 </aside>
 
 </body>

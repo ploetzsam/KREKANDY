@@ -123,11 +123,24 @@ function closeCheckoutModal() {
 function processOrder(event) {
   event.preventDefault();
 
+  const phoneInput = document.getElementById("cust-phone")?.value || "";
+  
+  // Clean phone number to digits only
+  const cleanPhone = phoneInput.replace(/\D/g, '');
+
+  // Check if phone number is valid (10 digits US)
+  if (cleanPhone.length !== 10) {
+    alert("Please enter a valid 10-digit phone number so we can text you when your order is ready!");
+    return;
+  }
+
   const submitBtn = document.getElementById("submit-order-btn");
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.innerText = "Submitting Order...";
   }
+
+  // ... rest of your processOrder logic
 
   const orderNum = Math.floor(1000 + Math.random() * 9000);
   const orderId = `KC-${orderNum}`;
