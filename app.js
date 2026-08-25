@@ -47,7 +47,6 @@ window.PRODUCTS = window.PRODUCTS || [
     flavors: []
   },
 
-
   // --- Gummies, Bears & Worms ---
   {
     handle: "gummy-worms",
@@ -62,7 +61,6 @@ window.PRODUCTS = window.PRODUCTS || [
       { name: "Sour", image: "krephoto/sour_worms.jpg" }
     ]
   },
-  
   {
     handle: "bears",
     title: "Bears",
@@ -123,8 +121,7 @@ window.PRODUCTS = window.PRODUCTS || [
       { name: "Orange Creamsicle", image: "krephoto/saltwater_taffy.JPG" },
       { name: "Frosted Cupcake", image: "krephoto/saltwater_taffy.JPG" },
       { name: "Cinnamon", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Strawberry Banana", image: "krephoto/saltwater_taffy.JPG" },
-
+      { name: "Strawberry Banana", image: "krephoto/saltwater_taffy.JPG" }
     ]
   },
   {
@@ -320,19 +317,7 @@ window.PRODUCTS = window.PRODUCTS || [
     description: "Fiery cinnamon balls puffed up into crunchy spheres packed with serious cinnamon heat.",
     defaultImage: "krephoto/hot_hot_hot.jpg",
     flavors: []
-  },
-  
-  // {
-  //   handle: "candy-corn",
-  //   title: "Candy Corn",
-  //   category: "Meltaways",
-  //   price: 5.00,
-  //   size: "3.5oz",
-  //   description: "The classic autumn treat puffed up into honeycomb-crisp honey vanilla bites.",
-  //   defaultImage: "krephoto/candy_corn.jpg",
-  //   flavors: []
-  // }
-  
+  }
 ];
 
 // Active filter category
@@ -482,49 +467,51 @@ function renderAllGrids() {
   const shopEl = document.getElementById("shop-product-grid");
   const bgs = ["bg-1", "bg-2", "bg-3", "bg-4"];
 
-const buildCardHTML = (p, idx, prefix = "grid") => {
-  const hasFlavors = p.flavors && p.flavors.length > 0;
-  const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+  const buildCardHTML = (p, idx, gridPrefix = "grid") => {
+    const hasFlavors = p.flavors && p.flavors.length > 0;
+    const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
 
-  const dropdownHTML = (hasFlavors && p.flavors.length > 0) ? `
-    <div class="flavor-select-container">
-      <label class="flavor-label" for="flavor-${prefix}-${p.handle}-${idx}">Flavor:</label>
-      <select id="flavor-${prefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
-        ${p.flavors.map(f => `<option value="${f.name}" data-image="${f.image}">${f.name}</option>`).join("")}
-      </select>
-    </div>
-  ` : '';
-
-  return `
-    <div class="card">
-      <div class="img ${bgs[idx % bgs.length]}">
-        <span class="badge">${p.size}</span>
-        <img src="${initialImg}" alt="${p.title}">
+    const dropdownHTML = (hasFlavors && p.flavors.length > 0) ? `
+      <div class="flavor-select-container">
+        <label class="flavor-label" for="flavor-${gridPrefix}-${p.handle}-${idx}">Flavor:</label>
+        <select id="flavor-${gridPrefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
+          ${p.flavors.map(f => `<option value="${f.name}" data-image="${f.image}">${f.name}</option>`).join("")}
+        </select>
       </div>
-      <div class="body">
-        <h3>${p.title}</h3>
-        <p class="desc">${p.description}</p>
-        ${dropdownHTML}
-        <div class="row">
-          <span class="price">$${p.price.toFixed(2)}</span>
-          <button class="btn btn-dark" type="button" onclick="addProductFromCard(this, '${p.handle}')">+ Add</button>
+    ` : '';
+
+    return `
+      <div class="card">
+        <div class="img ${bgs[idx % bgs.length]}">
+          <span class="badge">${p.size}</span>
+          <img src="${initialImg}" alt="${p.title}">
+        </div>
+        <div class="body">
+          <h3>${p.title}</h3>
+          <p class="desc">${p.description}</p>
+          ${dropdownHTML}
+          <div class="row">
+            <span class="price">$${p.price.toFixed(2)}</span>
+            <button class="btn btn-dark" type="button" onclick="addProductFromCard(this, '${p.handle}')">+ Add</button>
+          </div>
         </div>
       </div>
-    </div>
-  `;
-};
+    `;
+  };
 
-// Update the render calls to pass the prefix parameter:
-if (featuredEl) {
-  featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i, "home")).join("");
-}
-
-if (shopEl) {
-  let list = PRODUCTS;
-  if (window.currentCategory && window.currentCategory !== "All") {
-    list = PRODUCTS.filter(p => p.category === window.currentCategory);
+  // Render Home Page (Featured)
+  if (featuredEl) {
+    featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i, "home")).join("");
   }
-  shopEl.innerHTML = list.map((p, i) => buildCardHTML(p, i, "shop")).join("");
+
+  // Render Shop Page
+  if (shopEl) {
+    let list = PRODUCTS;
+    if (window.currentCategory && window.currentCategory !== "All") {
+      list = PRODUCTS.filter(p => p.category === window.currentCategory);
+    }
+    shopEl.innerHTML = list.map((p, i) => buildCardHTML(p, i, "shop")).join("");
+  }
 }
 
 // 7. Drawer & Modal Controls
