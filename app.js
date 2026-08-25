@@ -218,12 +218,13 @@ window.PRODUCTS = window.PRODUCTS || [
   },
   {
     handle: "caramel-pops",
-    title: "Caramel Pops",
+    title: "Caramel Pops *Pickup Only*",
     category: "Chocolate & Caramel",
     price: 5.50,
     size: "3.5oz",
     description: "Caramel-apple and rich caramel suckers transformed into crunchy, stick-free caramel crisps.",
     defaultImage: "krephoto/caramel_pops.jpg",
+    pickupOnly: true,
     flavors: []
   },
   {
@@ -326,6 +327,20 @@ window.currentCategory = "All";
 // 2. Cart Engine
 var CART_KEY = "kreeze-cart";
 var cart = {
+
+  getShippingFee() {
+    const totalItems = this.count();
+    if (totalItems === 0) return 0;
+    if (totalItems <= 5) return 10;
+    return 10 + (totalItems - 5) * 1;
+  },
+  hasPickupOnlyItems() {
+    return this.items.some(item => {
+      const p = PRODUCTS.find(prod => prod.handle === item.handle);
+      return p && p.pickupOnly;
+    });
+  },
+
   items: JSON.parse(localStorage.getItem(CART_KEY) || "[]"),
   save() {
     localStorage.setItem(CART_KEY, JSON.stringify(this.items));
@@ -514,6 +529,30 @@ function renderAllGrids() {
   }
 }
 
+// Toggle Shipping Address inputs based on Fulfillment radio buttons
+function toggleShippingAddressFields(showShipping) {
+  const addressContainer = document.getElementById('shipping-address-fields');
+  const shipAddress = document.getElementById('ship-address');
+  const shipCity = document.getElementById('ship-city');
+  const shipState = document.getElementById('ship-state');
+  const shipZip = document.getElementById('ship-zip');
+
+  if (addressContainer) {
+    addressContainer.style.display = showShipping ? 'block' : 'none';
+  }
+
+  // Toggle 'required' attributes so form validation passes when pickup is chosen
+  if (shipAddress) shipAddress.required = showShipping;
+  if (shipCity) shipCity.required = showShipping;
+  if (shipState) shipState.required = showShipping;
+  if (shipZip) shipZip.required = showShipping;
+
+  // Recalculate totals if shipping function exists in app.js
+  if (typeof updateCheckoutTotals === 'function') {
+    updateCheckoutTotals();
+  }
+}
+
 // 7. Drawer & Modal Controls
 function openDrawer() {
   document.getElementById("drawer")?.classList.add("open");
@@ -529,16 +568,54 @@ function toggleMobileNav() {
 function checkout() {
   if (cart.items.length === 0) return;
   closeDrawer();
+  
   const title = document.getElementById("checkout-title");
   const form = document.getElementById("checkout-form");
   const screen = document.getElementById("confirmation-screen");
+  const shippingOption = document.getElementById("delivery-shipping");
+  const shippingNotice = document.getElementById("pickup-only-notice");
 
   if (title) title.innerText = "Complete Your Order";
   if (form) form.style.display = "block";
   if (screen) screen.style.display = "none";
 
+  // Check for pickup-only items in cart
+  if (cart.hasPickupOnlyItems()) {
+    if (shippingOption) shippingOption.disabled = true;
+    document.getElementById("delivery-pickup").checked = true;
+    if (shippingNotice) shippingNotice.style.display = "block";
+    toggleShippingAddressFields(false);
+  } else {
+    if (shippingOption) shippingOption.disabled = false;
+    if (shippingNotice) shippingNotice.style.display = "none";
+  }
+
+  updateCheckoutTotals();
+
   document.getElementById("checkout-modal")?.classList.add("open");
   document.getElementById("checkout-scrim")?.classList.add("open");
+}
+function toggleShippingAddressFields(isShipping) {
+  const addrFields = document.getElementById("shipping-address-fields");
+  if (addrFields) {
+    addrFields.style.display = isShipping ? "block" : "none";
+    document.querySelectorAll("#shipping-address-fields input").forEach(input => {
+      input.required = isShipping;
+    });
+  }
+  updateCheckoutTotals();
+}
+function updateCheckoutTotals() {
+  const isShipping = document.getElementById("delivery-shipping")?.checked;
+  const subtotal = cart.total();
+  const shippingFee = isShipping ? cart.getShippingFee() : 0;
+  const grandTotal = subtotal + shippingFee;
+
+  const feeDisplay = document.getElementById("checkout-shipping-fee");
+  const totalDisplay = document.getElementById("checkout-grand-total");
+
+  if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
+  if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
 }
 function closeCheckoutModal() {
   document.getElementById("checkout-modal")?.classList.remove("open");
@@ -547,11 +624,18 @@ function closeCheckoutModal() {
 
 function processOrder(event) {
   event.preventDefault();
+
   const phoneInput = document.getElementById("cust-phone")?.value || "";
   const cleanPhone = phoneInput.replace(/\D/g, '');
 
   if (cleanPhone.length !== 10) {
-    alert("Please enter a valid 10-digit phone number so we can text you when your order is ready!");
+    alert("Please enter a valid 10-digit phone number!");
+    return;
+  }
+
+  const isShipping = document.getElementById("delivery-shipping")?.checked;
+  if (isShipping && cart.hasPickupOnlyItems()) {
+    alert("Your cart contains items that are only available for local pickup. Please select Candy Shack Pickup.");
     return;
   }
 
@@ -566,11 +650,25 @@ function processOrder(event) {
   const name = document.getElementById("cust-name")?.value || "Customer";
   const email = document.getElementById("cust-email")?.value || "N/A";
   const phone = document.getElementById("cust-phone")?.value || "N/A";
-  const contactCombined = `Email: ${email} | Phone: ${phone}`;
-  const selectedMethod = document.getElementById("payment-method")?.value || "venmo";
-  const totalFormatted = "$" + cart.total().toFixed(2);
-  const numericAmount = cart.total().toFixed(2);
+  const deliveryType = isShipping ? "Direct Shipping" : "Candy Shack Pickup";
+  
+  let shippingAddressStr = "N/A (Local Pickup)";
+  if (isShipping) {
+    const street = document.getElementById("ship-address")?.value || "";
+    const city = document.getElementById("ship-city")?.value || "";
+    const state = document.getElementById("ship-state")?.value || "";
+    const zip = document.getElementById("ship-zip")?.value || "";
+    shippingAddressStr = `${street}, ${city}, ${state} ${zip}`;
+  }
 
+  const subtotal = cart.total();
+  const shippingFee = isShipping ? cart.getShippingFee() : 0;
+  const grandTotal = subtotal + shippingFee;
+  const totalFormatted = "$" + grandTotal.toFixed(2);
+  const numericAmount = grandTotal.toFixed(2);
+
+  const selectedMethod = document.getElementById("payment-method")?.value || "venmo";
+  
   const itemsList = cart.items.map(item => {
     const p = PRODUCTS.find(prod => prod.handle === item.handle) || {};
     const title = p.title || item.handle;
@@ -603,15 +701,17 @@ function processOrder(event) {
   }
 
   const templateParams = {
-    order_id: orderId,
-    customer_name: name,
-    customer_email: email,
-    customer_phone: phone,
-    customer_contact: contactCombined,
-    payment_method: appName,
-    order_total: totalFormatted,
-    order_items: itemsList
-  };
+  order_id: orderId,
+  customer_name: name,
+  customer_email: email,
+  customer_phone: phone,
+  delivery_method: deliveryType,
+  shipping_address: shippingAddressStr,
+  shipping_fee: `$${shippingFee.toFixed(2)}`, // <-- Sent to {{shipping_fee}}
+  payment_method: appName,
+  order_total: totalFormatted,                // <-- Sent to {{order_total}}
+  order_items: itemsList
+};
 
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
@@ -648,10 +748,9 @@ function processOrder(event) {
 
   if (submitBtn) {
     submitBtn.disabled = false;
-    submitBtn.innerText = "Place Order & Get Payment Details";
+    submitBtn.innerText = "Place Order & Pay";
   }
 }
-
 // 8. Load Grids
 document.addEventListener("DOMContentLoaded", () => {
   cart.render();

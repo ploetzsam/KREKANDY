@@ -116,68 +116,101 @@
   
   <div class="drawer-body" id="checkout-body" style="overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2rem;">
     <!-- Step A: Customer Contact Form -->
-<form id="checkout-form" onsubmit="processOrder(event)">
-  <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your Candy Shack pickup!</p>
-  
-  <!-- Full Name -->
-  <div style="margin-bottom: 1rem;">
-    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
-    <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+    <form id="checkout-form" onsubmit="processOrder(event)">
+      <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your order!</p>
+      
+      <!-- Full Name -->
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
+        <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+      </div>
+
+      <!-- Email Address -->
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
+        <input type="email" id="cust-email" required placeholder="name@example.com" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+      </div>
+
+      <!-- Phone Number -->
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
+        <input type="tel" id="cust-phone" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+      </div>
+
+      <!-- Delivery Method -->
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Fulfillment Option</label>
+        <div style="display:flex; gap:1rem; margin-top:.25rem;">
+          <label style="font-size:0.9rem;">
+            <input type="radio" name="delivery" id="delivery-pickup" value="pickup" checked onchange="toggleShippingAddressFields(false)"> Candy Shack Pickup
+          </label>
+          <label style="font-size:0.9rem;">
+            <input type="radio" name="delivery" id="delivery-shipping" value="shipping" onchange="toggleShippingAddressFields(true)"> Direct Shipping
+          </label>
+        </div>
+        <p id="pickup-only-notice" style="display:none; color:var(--coral); font-size:0.8rem; margin-top:0.25rem;">Contains local pickup only items (Caramel Pops).</p>
+      </div>
+
+      <!-- Shipping Address Fields (Hidden by default) -->
+      <div id="shipping-address-fields" style="display:none; margin-bottom: 1rem;">
+        <div style="margin-bottom: .5rem;">
+          <input type="text" id="ship-address" placeholder="Street Address" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        </div>
+        <div style="display:flex; gap:.5rem;">
+          <input type="text" id="ship-city" placeholder="City" style="width:50%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+          <input type="text" id="ship-state" placeholder="State" style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+          <input type="text" id="ship-zip" placeholder="Zip" style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div style="margin-bottom: 1.25rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
+        <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
+          <option value="venmo">Venmo (@Carrie-Bunk)</option>
+          <option value="cashapp">Cash App ($CarrieBunk)</option>
+          <option value="paypal">PayPal (paypal.me/krecandy)</option>
+        </select>
+      </div>
+
+      <!-- Totals -->
+      <div style="margin-bottom: 1rem; font-size: 0.9rem;">
+        <div>Shipping Fee: <span id="checkout-shipping-fee">$0.00</span></div>
+        <div><strong>Grand Total: <span id="checkout-grand-total">$0.00</span></strong></div>
+      </div>
+
+      <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
+    </form>
+
+    <!-- Step B: Confirmation Screen -->
+    <div id="confirmation-screen" style="display:none; text-align: center;">
+      <span style="font-size: 2.5rem;">🎉</span>
+      <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
+      <p style="font-size: .9rem;">Your order has been sent to our team.</p>
+
+      <div style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
+        <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id" style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
+        <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total" style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
+        <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
+        <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
+        <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
+          <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
+          <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
+          <li>Amount: <strong id="conf-amount">$0.00</strong></li>
+          <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
+        </ol>
+      </div>
+
+      <a id="pay-direct-link" href="#" target="_self" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
+
+      <!-- Failsafe Contact Box -->
+      <div style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
+        <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
+        <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>
+        <a href="tel:7165727980" style="color: var(--coral); font-weight: 800; font-size: 1.05rem; text-decoration: underline;">(716) 572-7980</a>
+      </div>
+    </div>
   </div>
-
-  <!-- Email Address -->
-  <div style="margin-bottom: 1rem;">
-    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
-    <input type="email" id="cust-email" required placeholder="name@example.com" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-  </div>
-
-  <!-- Phone Number -->
-  <div style="margin-bottom: 1rem;">
-    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
-    <input type="tel" id="cust-phone" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-  </div>
-
-  <!-- Payment Method -->
-  <div style="margin-bottom: 1.25rem;">
-    <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
-    <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
-      <option value="venmo">Venmo (@Carrie-Bunk)</option>
-      <option value="cashapp">Cash App ($CarrieBunk)</option>
-      <option value="paypal">PayPal (paypal.me/krecandy)</option>
-    </select>
-  </div>
-
-  <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
-</form>
-
-<!-- Step B: Confirmation Screen -->
-<div id="confirmation-screen" style="display:none; text-align: center;">
-  <span style="font-size: 2.5rem;">🎉</span>
-  <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
-  <p style="font-size: .9rem;">Your order has been sent to our Candy Shack team.</p>
-
-  <div style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
-    <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id" style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
-    <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total" style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
-    <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
-    <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
-    <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
-      <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
-      <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
-      <li>Amount: <strong id="conf-amount">$0.00</strong></li>
-      <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
-    </ol>
-  </div>
-
-  <a id="pay-direct-link" href="#" target="_self" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
-
-  <!-- Failsafe Contact Box -->
-  <div style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
-    <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
-    <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>
-    <a href="tel:7165727980" style="color: var(--coral); font-weight: 800; font-size: 1.05rem; text-decoration: underline;">(716) 572-7980</a>
-  </div>
-</div>
 </aside>
 
 </body>
