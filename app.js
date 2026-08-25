@@ -73,7 +73,7 @@ window.PRODUCTS = window.PRODUCTS || [
     defaultImage: "krephoto/bears.jpg",
     flavors: [
       { name: "Original", image: "krephoto/bears.jpg" },
-      { name: "Sour", image: "krephoto/sour_bears.jpeg" },
+      { name: "Sour", image: "krephoto/sour_bears.jpg" },
       { name: "Pineapple", image: "krephoto/pineapple_bears.jpg" }
     ]
   },
