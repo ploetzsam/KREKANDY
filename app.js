@@ -482,51 +482,49 @@ function renderAllGrids() {
   const shopEl = document.getElementById("shop-product-grid");
   const bgs = ["bg-1", "bg-2", "bg-3", "bg-4"];
 
-  const buildCardHTML = (p, idx) => {
-    const hasFlavors = p.flavors && p.flavors.length > 0;
-    const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+const buildCardHTML = (p, idx, prefix = "grid") => {
+  const hasFlavors = p.flavors && p.flavors.length > 0;
+  const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
 
-    const dropdownHTML = (hasFlavors && p.flavors.length > 0) ? `
-      <div class="flavor-select-container">
-        <label class="flavor-label" for="flavor-${p.handle}-${idx}">Flavor:</label>
-        <select id="flavor-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-image="${f.image}">${f.name}</option>`).join("")}
-        </select>
+  const dropdownHTML = (hasFlavors && p.flavors.length > 0) ? `
+    <div class="flavor-select-container">
+      <label class="flavor-label" for="flavor-${prefix}-${p.handle}-${idx}">Flavor:</label>
+      <select id="flavor-${prefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
+        ${p.flavors.map(f => `<option value="${f.name}" data-image="${f.image}">${f.name}</option>`).join("")}
+      </select>
+    </div>
+  ` : '';
+
+  return `
+    <div class="card">
+      <div class="img ${bgs[idx % bgs.length]}">
+        <span class="badge">${p.size}</span>
+        <img src="${initialImg}" alt="${p.title}">
       </div>
-    ` : '';
-
-    return `
-      <div class="card">
-        <div class="img ${bgs[idx % bgs.length]}">
-          <span class="badge">${p.size}</span>
-          <img src="${initialImg}" alt="${p.title}">
-        </div>
-        <div class="body">
-          <h3>${p.title}</h3>
-          <p class="desc">${p.description}</p>
-          ${dropdownHTML}
-          <div class="row">
-            <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn-dark" type="button" onclick="addProductFromCard(this, '${p.handle}')">+ Add</button>
-          </div>
+      <div class="body">
+        <h3>${p.title}</h3>
+        <p class="desc">${p.description}</p>
+        ${dropdownHTML}
+        <div class="row">
+          <span class="price">$${p.price.toFixed(2)}</span>
+          <button class="btn btn-dark" type="button" onclick="addProductFromCard(this, '${p.handle}')">+ Add</button>
         </div>
       </div>
-    `;
-  };
+    </div>
+  `;
+};
 
-  // Render Home Page (Featured)
-  if (featuredEl) {
-    featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i)).join("");
-  }
+// Update the render calls to pass the prefix parameter:
+if (featuredEl) {
+  featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i, "home")).join("");
+}
 
-  // Render Shop Page
-  if (shopEl) {
-    let list = PRODUCTS;
-    if (window.currentCategory && window.currentCategory !== "All") {
-      list = PRODUCTS.filter(p => p.category === window.currentCategory);
-    }
-    shopEl.innerHTML = list.map((p, i) => buildCardHTML(p, i)).join("");
+if (shopEl) {
+  let list = PRODUCTS;
+  if (window.currentCategory && window.currentCategory !== "All") {
+    list = PRODUCTS.filter(p => p.category === window.currentCategory);
   }
+  shopEl.innerHTML = list.map((p, i) => buildCardHTML(p, i, "shop")).join("");
 }
 
 // 7. Drawer & Modal Controls
