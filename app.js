@@ -70,7 +70,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.00,
     size: "4oz",
     description: "The classic gummi bears puffed up into delightfully crunchy, giant fruity cubes.",
-    defaultImage: "krephoto/Bears.jpg",
+    defaultImage: "krephoto/bears.jpg",
     flavors: [
       { name: "Original", image: "krephoto/bears.jpg" },
       { name: "Sour", image: "krephoto/sour_bears.jpeg" },
