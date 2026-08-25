@@ -70,7 +70,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.00,
     size: "4oz",
     description: "The classic gummi bears puffed up into delightfully crunchy, giant fruity cubes.",
-    defaultImage: "krephoto/bears.jpg",
+    defaultImage: "krephoto/Bears.jpg",
     flavors: [
       { name: "Original", image: "krephoto/bears.jpg" },
       { name: "Sour", image: "krephoto/sour_bears.jpeg" },
@@ -84,7 +84,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.00,
     size: "3.5oz",
     description: "Sweet blue raspberry sharks puffed into airy, ocean-blue crunchy treats with a marshmallow base.",
-    defaultImage: "krephoto/blue_sharks.jpeg",
+    defaultImage: "krephoto/blue_sharks.JPEG",
     flavors: []
   },
   {
@@ -116,14 +116,14 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 5.50,
     size: "3oz",
     description: "Traditional boardwalk taffy puffed into melt-in-your-mouth crispy airy pillows.",
-    defaultImage: "krephoto/saltwater_taffy.jpg",
+    defaultImage: "krephoto/saltwater_taffy.JPG",
     flavors: [
-      { name: "Watermelon", image: "krephoto/saltwater_taffy.jpg" },
-      { name: "Root Beer", image: "krephoto/saltwater_taffy.jpg" },
-      { name: "Orange Creamsicle", image: "krephoto/saltwater_taffy.jpg" },
-      { name: "Frosted Cupcake", image: "krephoto/saltwater_taffy.jpg" },
-      { name: "Cinnamon", image: "krephoto/saltwater_taffy.jpg" },
-      { name: "Strawberry Banana", image: "krephoto/saltwater_taffy.jpg" },
+      { name: "Watermelon", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Root Beer", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Orange Creamsicle", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Frosted Cupcake", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Cinnamon", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Strawberry Banana", image: "krephoto/saltwater_taffy.JPG" },
 
     ]
   },
@@ -174,7 +174,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.00,
     size: "4oz",
     description: "A wild blend of strawberries, blueberries, and raspberries in crispy freeze-dried clouds.",
-    defaultImage: "krephoto/berry_delicious.jpeg",
+    defaultImage: "krephoto/berry_delicious.JPEG",
     flavors: []
   },
   {
@@ -206,7 +206,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.50,
     size: "4oz",
     description: "Crunchy cookie bars with caramel and chocolate that shatter with buttery decadence.",
-    defaultImage: "krephoto/left_and_rights.jpeg",
+    defaultImage: "krephoto/left_and_rights.JPEG",
     flavors: []
   },
   {
@@ -216,7 +216,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 6.00,
     size: "4oz",
     description: "Chewy golden caramels puffed into honeycomb crunch nuggets.",
-    defaultImage: "krephoto/caramel_yums.jpeg",
+    defaultImage: "krephoto/caramel_yums.JPEG",
     flavors: []
   },
   {
@@ -278,7 +278,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 5.50,
     size: "3.5oz",
     description: "Tangy, tart-compressed candies that puff into instantly melting power pellets.",
-    defaultImage: "krephoto/power_pellets.jpeg",
+    defaultImage: "krephoto/power_pellets.JPEG",
     flavors: []
   },
   {
@@ -308,7 +308,7 @@ window.PRODUCTS = window.PRODUCTS || [
     price: 5.00,
     size: "3oz",
     description: "Bright, zesty lemon drops expanded into airy citrus clouds that melt in seconds.",
-    defaultImage: "krephoto/lemon_puffs.jpeg",
+    defaultImage: "krephoto/lemon_puffs.JPEG",
     flavors: []
   },
   {
