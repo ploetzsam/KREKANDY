@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Shop - Kreeze Candies</title>
-<meta name="description" content="Browse Kreeze Candies' freeze-dried candy lineup: Bunkleberrys, Rings, and Fluff Balls. Order for Candy Shack pickup.">
+<meta name="description" content="Browse Kreeze Candies' freeze-dried candy lineup. Order for Candy Shack pickup or direct shipping.">
 <meta property="og:title" content="Shop - Kreeze Candies">
-<meta property="og:description" content="Browse Kreeze Candies' freeze-dried candy lineup: Bunkleberrys, Rings, and Fluff Balls. Order for Candy Shack pickup.">
+<meta property="og:description" content="Browse Kreeze Candies' freeze-dried candy lineup. Order for Candy Shack pickup or direct shipping.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,19 +47,17 @@
     <span class="eyebrow">Candy Catalog</span>
     <h2 style="margin-bottom:1.5rem">All the Crunch</h2>
     
-    <!-- Category Filter Tabs (Shop Only) -->
-  <div class="category-tabs-container">
-  <div class="category-tabs" role="tablist" aria-label="Candy Categories">
-    <button class="category-pill active" data-category="All" onclick="filterCategory('All')">🌈 All Candies</button>
-    <button class="category-pill" data-category="Chews & Fruity" onclick="filterCategory('Chews & Fruity')">🍬 Chews & Fruity</button>
-    <button class="category-pill" data-category="Gummies & Rings" onclick="filterCategory('Gummies & Rings')">🍑 Gummies & Rings</button>
-    <button class="category-pill" data-category="Taffy & Puffs" onclick="filterCategory('Taffy & Puffs')">🌊 Taffy & Puffs</button>
-    <button class="category-pill" data-category="Chocolate & Caramel" onclick="filterCategory('Chocolate & Caramel')">🍫 Chocolate & Caramel</button>
-    <button class="category-pill" data-category="Meltaways" onclick="filterCategory('Meltaways')">✨ Meltaways & Hard Candy</button>
-  </div>
-</div>
+    <div class="category-tabs-container">
+      <div class="category-tabs" role="tablist" aria-label="Candy Categories">
+        <button class="category-pill active" data-category="All" onclick="filterCategory('All')">🌈 All Candies</button>
+        <button class="category-pill" data-category="Chews & Fruity" onclick="filterCategory('Chews & Fruity')">🍬 Chews & Fruity</button>
+        <button class="category-pill" data-category="Gummies & Rings" onclick="filterCategory('Gummies & Rings')">🍑 Gummies & Rings</button>
+        <button class="category-pill" data-category="Taffy & Puffs" onclick="filterCategory('Taffy & Puffs')">🌊 Taffy & Puffs</button>
+        <button class="category-pill" data-category="Chocolate & Caramel" onclick="filterCategory('Chocolate & Caramel')">🍫 Chocolate & Caramel</button>
+        <button class="category-pill" data-category="Meltaways" onclick="filterCategory('Meltaways')">✨ Meltaways & Hard Candy</button>
+      </div>
+    </div>
 
-    <!-- Product Grid for Shop -->
     <div class="grid" id="shop-product-grid"></div>
   </div>
 </section>
@@ -92,7 +90,6 @@
   </div>
 </footer>
 
-<!-- Cart Drawer -->
 <div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
 <aside class="drawer" id="drawer" aria-label="Cart">
   <div class="drawer-head">
@@ -110,7 +107,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="app.js"></script>
 
-<!-- Mobile-Optimized Checkout Modal -->
+<!-- Mobile Checkout Modal -->
 <div class="drawer-scrim" id="checkout-scrim" onclick="closeCheckoutModal()"></div>
 <aside class="drawer" id="checkout-modal" aria-label="Checkout">
   <div class="drawer-head">
@@ -119,29 +116,24 @@
   </div>
   
   <div class="drawer-body" id="checkout-body" style="overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2rem;">
-    <!-- Step A: Customer Contact Form -->
     <form id="checkout-form" onsubmit="processOrder(event)">
       <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your order!</p>
       
-      <!-- Full Name -->
       <div style="margin-bottom: 1rem;">
         <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
         <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
       </div>
 
-      <!-- Email Address -->
       <div style="margin-bottom: 1rem;">
         <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
         <input type="email" id="cust-email" required placeholder="name@example.com" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
       </div>
 
-      <!-- Phone Number -->
       <div style="margin-bottom: 1rem;">
         <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
         <input type="tel" id="cust-phone" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
       </div>
 
-      <!-- Delivery Method -->
       <div style="margin-bottom: 1rem;">
         <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Fulfillment Option</label>
         <div style="display:flex; gap:1rem; margin-top:.25rem;">
@@ -155,7 +147,6 @@
         <p id="pickup-only-notice" style="display:none; color:var(--coral); font-size:0.8rem; margin-top:0.25rem;">Contains local pickup only items (Caramel Pops).</p>
       </div>
 
-      <!-- Shipping Address Fields (Hidden by default) -->
       <div id="shipping-address-fields" style="display:none; margin-bottom: 1rem;">
         <div style="margin-bottom: .5rem;">
           <input type="text" id="ship-address" placeholder="Street Address" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
@@ -167,7 +158,6 @@
         </div>
       </div>
 
-      <!-- Payment Method -->
       <div style="margin-bottom: 1.25rem;">
         <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
         <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
@@ -177,7 +167,6 @@
         </select>
       </div>
 
-      <!-- Totals -->
       <div style="margin-bottom: 1rem; font-size: 0.9rem;">
         <div>Shipping Fee: <span id="checkout-shipping-fee">$0.00</span></div>
         <div><strong>Grand Total: <span id="checkout-grand-total">$0.00</span></strong></div>
@@ -186,7 +175,6 @@
       <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
     </form>
 
-    <!-- Step B: Confirmation Screen -->
     <div id="confirmation-screen" style="display:none; text-align: center;">
       <span style="font-size: 2.5rem;">🎉</span>
       <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
@@ -205,9 +193,8 @@
         </ol>
       </div>
 
-      <a id="pay-direct-link" href="#" target="_self" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
+      <a id="pay-direct-link" href="#" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
 
-      <!-- Failsafe Contact Box -->
       <div style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
         <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
         <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>

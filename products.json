@@ -1,1 +1,272 @@
-{"data":{"products":{"edges":[{"node":{"id":"gid://shopify/Product/9484456329474","title":"Bunkleberrys","description":"Bunkleberrys - our signature rainbow candy, freeze-dried into crunchy, puffy clouds of fruit flavor. Every 4oz bag is small-batch made and packed fresh for Candy Shack pickup.","handle":"freeze-dried-skittles","priceRange":{"minVariantPrice":{"amount":"6.0"}},"images":{"edges":[{"node":{"url":"https://cdn.shopify.com/s/files/1/0827/7606/4258/files/Skittles_Original.webp?v=1783621570","altText":"Freeze-dried Skittles"}}]}}},{"node":{"id":"gid://shopify/Product/9484456395010","title":"Noah's Peaches","description":"Noah's Peaches - chewy peach rings freeze-dried into crunchy, tangy puffs. 4oz bag, small-batch made fresh and waiting for you at the Candy Shack.","handle":"freeze-dried-peach-rings","priceRange":{"minVariantPrice":{"amount":"6.0"}},"images":{"edges":[{"node":{"url":"https://cdn.shopify.com/s/files/1/0827/7606/4258/files/peaches.webp?v=1783621548","altText":"Freeze-dried peach rings"}}]}}},{"node":{"id":"gid://shopify/Product/9484456427778","title":"Fluff Balls","description":"Fluff Balls - hard candy transformed into light, airy, meltaway crunch. Bold fruit flavor in every bite. 3oz bag, small-batch freeze-dried and ready at the Candy Shack.","handle":"freeze-dried-jolly-ranchers","priceRange":{"minVariantPrice":{"amount":"5.0"}},"images":{"edges":[{"node":{"url":"https://cdn.shopify.com/s/files/1/0827/7606/4258/files/Jolly_Ranchers.webp?v=1783621532","altText":"Freeze-dried Jolly Ranchers"}}]}}}]}},"extensions":{"cost":{"requestedQueryCost":29}}}
+{
+  "products": [
+    {
+      "id": "kc-bunkleberrys",
+      "handle": "bunkleberrys",
+      "title": "Bunkleberrys",
+      "category": "Chews & Fruity",
+      "price": 6.00,
+      "size": "4oz",
+      "description": "The freeze-dried treat — fruity clouds that shatter with bursts of flavor.",
+      "flavors": ["Rainbow", "Wild", "Tropical", "Sour", "Smoothie"]
+    },
+    {
+      "id": "kc-rings",
+      "handle": "rings",
+      "title": "Rings",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Sweet-and-tangy puffed rings. Melts on the tongue with pure fruity goodness.",
+      "flavors": ["Peach", "Watermelon", "Strawberry Banana", "Apple", "Blue Raspberry"]
+    },
+    {
+      "id": "kc-happy-rancheros",
+      "handle": "happy-rancheros",
+      "title": "Happy Rancheros",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "3oz",
+      "description": "Happy Rancheros — same bold flavor, no dental drama."
+    },
+    {
+      "id": "kc-gummy-worms",
+      "handle": "gummy-worms",
+      "title": "Gummy Worms",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Classic crawlers puffed up double their size into crispy, fruity crunch sticks.",
+      "flavors": ["Original", "Sour"]
+    },
+    {
+      "id": "kc-bears",
+      "handle": "bears",
+      "title": "Gummy Bears",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "The classic gummi bears puffed up into delightfully crunchy fruity bites.",
+      "flavors": ["Original", "Sour", "Pineapple"]
+    },
+    {
+      "id": "kc-blue-sharks",
+      "handle": "blue-sharks",
+      "title": "Sharks",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Sweet blue raspberry sharks puffed into airy, ocean-blue crunchy treats with a marshmallow base."
+    },
+    {
+      "id": "kc-guppies",
+      "handle": "guppies",
+      "title": "Guppies",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Little Swedish-style red fish transformed into crisp, airy cherry-berry crunch poppers."
+    },
+    {
+      "id": "kc-bitter-toddlers",
+      "handle": "bitter-toddlers",
+      "title": "Bitter Toddlers",
+      "category": "Gummies & Rings",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Sour, then sweet, then delightfully puffed! A crunchy take on legendary sour kids."
+    },
+    {
+      "id": "kc-salt-water-taffy",
+      "handle": "salt-water-taffy",
+      "title": "Salt Water Taffy",
+      "category": "Taffy & Puffs",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Traditional boardwalk taffy puffed into melt-in-your-mouth crispy airy pillows.",
+      "flavors": ["Watermelon", "Root Beer", "Orange Creamsicle", "Frosted Cupcake", "Cinnamon", "Strawberry Banana"]
+    },
+    {
+      "id": "kc-puffy-taffy",
+      "handle": "puffy-taffy",
+      "title": "Puffy Taffy",
+      "category": "Taffy & Puffs",
+      "price": 6.00,
+      "size": "1oz",
+      "description": "Super-expanded chewy taffy with an irresistible crunch that instantly dissolves."
+    },
+    {
+      "id": "kc-fruity-twists",
+      "handle": "fruity-twists",
+      "title": "Fruity Twists",
+      "category": "Chews & Fruity",
+      "price": 6.00,
+      "size": "1.5oz",
+      "description": "Chewy twists blasted into brittle, flavor-concentrated crunchy sticks."
+    },
+    {
+      "id": "kc-fruit-puffs",
+      "handle": "fruit-puffs",
+      "title": "Fruit Poofs",
+      "category": "Chews & Fruity",
+      "price": 6.00,
+      "size": "1oz",
+      "description": "Bite-sized fruity bursts transformed into light, crispy air pockets."
+    },
+    {
+      "id": "kc-starfire",
+      "handle": "starfire",
+      "title": "Starfire",
+      "category": "Chews & Fruity",
+      "price": 6.00,
+      "size": "1.5oz",
+      "description": "Juicy fruit chews puffed into crispy mega-cubes bursting with flavor."
+    },
+    {
+      "id": "kc-berry-delicious",
+      "handle": "berry-delicious",
+      "title": "Berry Delicious",
+      "category": "Chews & Fruity",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "A blend of berries in crispy freeze-dried clouds."
+    },
+    {
+      "id": "kc-pb-drizzle",
+      "handle": "pb-drizzle",
+      "title": "PB Drizzles",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2.5oz",
+      "description": "A Kreeze Candies Original! Chocolate and peanut butter crisped to perfection and drizzled fresh."
+    },
+    {
+      "id": "kc-pb-crunchies",
+      "handle": "pb-crunchies",
+      "title": "PB Crunchies (Limited Time)",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2.5oz",
+      "description": "Limited Edition! Rich peanut butter crunch blasted to crispy perfection."
+    },
+    {
+      "id": "kc-left-and-rights",
+      "handle": "left-and-rights",
+      "title": "Left & Rights",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Crunchy cookie bars with caramel and chocolate that shatter with buttery decadence."
+    },
+    {
+      "id": "kc-caramels",
+      "handle": "caramels",
+      "title": "Caramels",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "4oz",
+      "description": "Chewy golden caramels puffed into honeycomb crunch nuggets."
+    },
+    {
+      "id": "kc-caramel-pops",
+      "handle": "caramel-pops",
+      "title": "Caramel Pops *Pickup Only*",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "3.5oz",
+      "description": "Rich caramel suckers transformed into crunchy, stick-free caramel crisps.",
+      "pickupOnly": true
+    },
+    {
+      "id": "kc-duds",
+      "handle": "duds",
+      "title": "Duds",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Chocolate-covered caramels exploded into giant, crisp caramel nuggets."
+    },
+    {
+      "id": "kc-charlies",
+      "handle": "charlies",
+      "title": "Charlies",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Fluffy nougat and rich chocolate bars turned into light-as-air crisp honeycomb bites."
+    },
+    {
+      "id": "kc-cluster-bombs",
+      "handle": "cluster-bombs",
+      "title": "Cluster Bombs",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "1.5oz",
+      "description": "Gummy, crunchy, tangy candy clusters blasted into crunchy flavor meteorites."
+    },
+    {
+      "id": "kc-peanut-brittle",
+      "handle": "peanut-brittle",
+      "title": "Brittle",
+      "category": "Chocolate & Caramel",
+      "price": 6.00,
+      "size": "2.5oz",
+      "description": "Small-batch homemade brittle freeze-dried for an ultra-light, buttery snap."
+    },
+    {
+      "id": "kc-lemon-puffs",
+      "handle": "lemon-puffs",
+      "title": "Lemon Puffs",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "2.5oz",
+      "description": "Bright citrus drops expanded into airy candy clouds that melt in seconds.",
+      "flavors": ["Original", "Sour Cherry", "Blue Raspberry"]
+    },
+    {
+      "id": "kc-candy-corn",
+      "handle": "candy-corn",
+      "title": "Candy Corn",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "2.5oz",
+      "description": "Traditional seasonal candy corn puffed into airy, melt-in-your-mouth crispy bites."
+    },
+    {
+      "id": "kc-power-pellets",
+      "handle": "power-pellets",
+      "title": "Power Pellets",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "3.5oz",
+      "description": "Tangy tart-compressed candies that puff into instantly melting power pellets."
+    },
+    {
+      "id": "kc-bit-o-honey",
+      "handle": "bit-o-honey",
+      "title": "Bit-O-Honey",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "1oz",
+      "description": "Pure honey candy freeze-dried into crunchy, sweet golden honeycomb crystals."
+    },
+    {
+      "id": "kc-watermelon-pops",
+      "handle": "watermelon-pops",
+      "title": "Watermelon Pops",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Sweet and tangy watermelon lollipops turned into airy, crunchy flavor sponges."
+    },
+    {
+      "id": "kc-red-hots",
+      "handle": "red-hots",
+      "title": "Red Hots",
+      "category": "Meltaways",
+      "price": 6.00,
+      "size": "2oz",
+      "description": "Fiery cinnamon balls puffed up into crunchy spheres packed with serious heat."
+    }
+  ]
+}

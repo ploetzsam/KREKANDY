@@ -3,22 +3,23 @@ if (typeof emailjs !== "undefined") {
   emailjs.init("9BQ6lNs0zSSHVD459");
 }
 
-// 1. Products Catalog with Flavors & Image Links
+// 1. Products Catalog with Flavor-Specific Sizes & Images (All items $6.00)
 window.PRODUCTS = window.PRODUCTS || [
-  // --- Featured / Original Classics ---
+  // --- Bunkleberries & Rings ---
   {
     handle: "bunkleberrys",
     title: "Bunkleberrys",
     category: "Chews & Fruity",
     price: 6.00,
     size: "4oz",
-    description: "The freeze-dried treat, fruity clouds that shatter noah's mouth with flavor.",
+    description: "The freeze-dried treat — fruity clouds that shatter with bursts of flavor.",
     defaultImage: "krephoto/bunkleberries.jpg",
     flavors: [
-      { name: "Original", image: "krephoto/bunkleberries.jpg" },
-      { name: "Sour", image: "krephoto/sour_bunkleberries.jpg" },
-      { name: "Smoothie", image: "krephoto/smoothie_bunkleberries.jpg" },
-      { name: "Cotton Candy", image: "krephoto/cotton_candy_bunkleberries.jpg" }
+      { name: "Rainbow", size: "4oz", image: "krephoto/bunkleberries.jpg" },
+      { name: "Wild", size: "4oz", image: "krephoto/wild_bunkleberries.jpeg" },
+      { name: "Tropical", size: "3oz", image: "krephoto/tropical_bunkleberries.jpeg" },
+      { name: "Sour", size: "3oz", image: "krephoto/sour_bunkleberries.jpg" },
+      { name: "Smoothie", size: "3oz", image: "krephoto/smoothie_bunkleberries.jpg" }
     ]
   },
   {
@@ -26,61 +27,62 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Rings",
     category: "Gummies & Rings",
     price: 6.00,
-    size: "4oz",
-    description: "Rings - sweet-and-tangy crunch. Melts on the tongue and made with pure peachy goodness.",
+    size: "2oz",
+    description: "Sweet-and-tangy puffed rings. Melts on the tongue with pure fruity goodness.",
     defaultImage: "images/peaches.webp",
     flavors: [
-      { name: "Peach", image: "images/peaches.webp" },
-      { name: "Blue Raspberry", image: "images/peaches.webp" },
-      { name: "Apple", image: "images/peaches.webp" },
-      { name: "Strawberry Banana", image: "images/peaches.webp" }
+      { name: "Peach", size: "2oz", image: "krephoto/peach_rings.jpeg" },
+      { name: "Watermelon", size: "2oz", image: "krephoto/watermelon_rings.jpeg" },
+      { name: "Strawberry Banana", size: "2oz", image: "krephoto/straw_banana_rings.jpeg" },
+      { name: "Apple", size: "2oz", image: "krephoto/apple_rings.jpeg" },
+      { name: "Blue Raspberry", size: "2oz", image: "krephoto/blue_raspberry_rings.jpeg" }
     ]
   },
   {
     handle: "happy-rancheros",
     title: "Happy Rancheros",
     category: "Meltaways",
-    price: 5.00,
+    price: 6.00,
     size: "3oz",
-    description: "Happy Rancheros - same bold flavor, no dental drama.",
+    description: "Happy Rancheros — same bold flavor, no dental drama.",
     defaultImage: "krephoto/happy_rancheros.jpg",
     flavors: []
   },
 
-  // --- Gummies, Bears & Worms ---
+  // --- Gummies & Novelties ---
   {
     handle: "gummy-worms",
     title: "Gummy Worms",
     category: "Gummies & Rings",
     price: 6.00,
-    size: "3.5oz",
+    size: "2oz",
     description: "Classic crawlers puffed up double their size into crispy, fruity crunch sticks.",
     defaultImage: "krephoto/gummy_worms.jpg",
     flavors: [
-      { name: "Original", image: "krephoto/gummy_worms.jpg" },
-      { name: "Sour", image: "krephoto/sour_worms.jpg" }
+      { name: "Original", size: "2oz", image: "krephoto/gummy_worms.jpg" },
+      { name: "Sour", size: "2oz", image: "krephoto/sour_worms.jpg" }
     ]
   },
   {
     handle: "bears",
-    title: "Bears",
+    title: "Gummy Bears",
     category: "Gummies & Rings",
     price: 6.00,
-    size: "4oz",
-    description: "The classic gummi bears puffed up into delightfully crunchy, giant fruity cubes.",
+    size: "2oz",
+    description: "The classic gummi bears puffed up into delightfully crunchy fruity bites.",
     defaultImage: "krephoto/bears.jpg",
     flavors: [
-      { name: "Original", image: "krephoto/bears.jpg" },
-      { name: "Sour", image: "krephoto/sourbears.jpg" },
-      { name: "Pineapple", image: "krephoto/pineapple_bears.jpg" }
+      { name: "Original", size: "2oz", image: "krephoto/bears.jpg" },
+      { name: "Sour", size: "2oz", image: "krephoto/sourbears.jpg" },
+      { name: "Pineapple", size: "2oz", image: "krephoto/pineapple_bears.jpg" }
     ]
   },
   {
     handle: "blue-sharks",
-    title: "Blue Sharks",
+    title: "Sharks",
     category: "Gummies & Rings",
     price: 6.00,
-    size: "3.5oz",
+    size: "2oz",
     description: "Sweet blue raspberry sharks puffed into airy, ocean-blue crunchy treats with a marshmallow base.",
     defaultImage: "krephoto/blue_sharks.JPEG",
     flavors: []
@@ -89,8 +91,8 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "guppies",
     title: "Guppies",
     category: "Gummies & Rings",
-    price: 5.50,
-    size: "3.5oz",
+    price: 6.00,
+    size: "2oz",
     description: "Little Swedish-style red fish transformed into crisp, airy cherry-berry crunch poppers.",
     defaultImage: "krephoto/guppies.jpg",
     flavors: []
@@ -100,8 +102,8 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Bitter Toddlers",
     category: "Gummies & Rings",
     price: 6.00,
-    size: "4oz",
-    description: "Sour, then sweet, then delightfully puffed! A crunchy take on the legendary sour kids.",
+    size: "2oz",
+    description: "Sour, then sweet, then delightfully puffed! A crunchy take on legendary sour kids.",
     defaultImage: "krephoto/bitter_toddlers.jpg",
     flavors: []
   },
@@ -111,25 +113,25 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "salt-water-taffy",
     title: "Salt Water Taffy",
     category: "Taffy & Puffs",
-    price: 5.50,
-    size: "3oz",
+    price: 6.00,
+    size: "2oz",
     description: "Traditional boardwalk taffy puffed into melt-in-your-mouth crispy airy pillows.",
     defaultImage: "krephoto/saltwater_taffy.JPG",
     flavors: [
-      { name: "Watermelon", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Root Beer", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Orange Creamsicle", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Frosted Cupcake", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Cinnamon", image: "krephoto/saltwater_taffy.JPG" },
-      { name: "Strawberry Banana", image: "krephoto/saltwater_taffy.JPG" }
+      { name: "Watermelon", size: "2oz", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Root Beer", size: "2oz", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Orange Creamsicle", size: "2oz", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Frosted Cupcake", size: "2oz", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Cinnamon", size: "2oz", image: "krephoto/saltwater_taffy.JPG" },
+      { name: "Strawberry Banana", size: "2oz", image: "krephoto/saltwater_taffy.JPG" }
     ]
   },
   {
     handle: "puffy-taffy",
     title: "Puffy Taffy",
     category: "Taffy & Puffs",
-    price: 5.50,
-    size: "3oz",
+    price: 6.00,
+    size: "1oz",
     description: "Super-expanded chewy taffy with an irresistible crunch that instantly dissolves.",
     defaultImage: "krephoto/puffy_taffy.jpg",
     flavors: []
@@ -138,18 +140,18 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "fruity-twists",
     title: "Fruity Twists",
     category: "Chews & Fruity",
-    price: 5.50,
-    size: "3.5oz",
-    description: "Chewy licorice twists blasted into brittle, flavor-concentrated crunchy sticks.",
+    price: 6.00,
+    size: "1.5oz",
+    description: "Chewy twists blasted into brittle, flavor-concentrated crunchy sticks.",
     defaultImage: "krephoto/fruity_twists.jpg",
     flavors: []
   },
   {
     handle: "fruit-puffs",
-    title: "Fruit Puffs",
+    title: "Fruit Poofs",
     category: "Chews & Fruity",
-    price: 5.50,
-    size: "3.5oz",
+    price: 6.00,
+    size: "1oz",
     description: "Bite-sized fruity bursts transformed into light, crispy air pockets.",
     defaultImage: "krephoto/fruit_puffs.jpg",
     flavors: []
@@ -159,8 +161,8 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Starfire",
     category: "Chews & Fruity",
     price: 6.00,
-    size: "4oz",
-    description: "Juicy square fruit chews puffed into crispy mega-cubes bursting with flavor.",
+    size: "1.5oz",
+    description: "Juicy fruit chews puffed into crispy mega-cubes bursting with flavor.",
     defaultImage: "krephoto/starfire.jpg",
     flavors: []
   },
@@ -169,46 +171,46 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Berry Delicious",
     category: "Chews & Fruity",
     price: 6.00,
-    size: "4oz",
-    description: "A wild blend of strawberries, blueberries, and raspberries in crispy freeze-dried clouds.",
+    size: "2oz",
+    description: "A blend of berries in crispy freeze-dried clouds.",
     defaultImage: "krephoto/berry_delicious.JPEG",
-    flavors: []
-  },
-  {
-    handle: "rainbow-tarts",
-    title: "Rainbow Tarts",
-    category: "Chews & Fruity",
-    price: 5.50,
-    size: "3.5oz",
-    description: "Sweet, tangy candy discs that puff up into a chalky-crunch explosion.",
-    defaultImage: "krephoto/rainbow_tarts.jpg",
     flavors: []
   },
 
   // --- Chocolates, Caramels & Kreeze Originals ---
   {
     handle: "pb-drizzle",
-    title: "PB Drizzle",
+    title: "PB Drizzles",
     category: "Chocolate & Caramel",
-    price: 7.00,
-    size: "4oz",
-    description: "A Kreeze Candies Original! Rich chocolate and peanut butter crisped to perfection and drizzled fresh.",
+    price: 6.00,
+    size: "2.5oz",
+    description: "A Kreeze Candies Original! Chocolate and peanut butter crisped to perfection and drizzled fresh.",
     defaultImage: "krephoto/pb_drizzle.jpg",
+    flavors: []
+  },
+  {
+    handle: "pb-crunchies",
+    title: "PB Crunchies (Limited Time)",
+    category: "Chocolate & Caramel",
+    price: 6.00,
+    size: "2.5oz",
+    description: "Limited Edition! Rich peanut butter crunch blasted to crispy perfection.",
+    defaultImage: "krephoto/pb_crunchies.jpeg",
     flavors: []
   },
   {
     handle: "left-and-rights",
     title: "Left & Rights",
     category: "Chocolate & Caramel",
-    price: 6.50,
-    size: "4oz",
+    price: 6.00,
+    size: "2oz",
     description: "Crunchy cookie bars with caramel and chocolate that shatter with buttery decadence.",
     defaultImage: "krephoto/left_and_rights.JPEG",
     flavors: []
   },
   {
-    handle: "caramel-yums",
-    title: "Caramel Yums",
+    handle: "caramels",
+    title: "Caramels",
     category: "Chocolate & Caramel",
     price: 6.00,
     size: "4oz",
@@ -220,9 +222,9 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "caramel-pops",
     title: "Caramel Pops *Pickup Only*",
     category: "Chocolate & Caramel",
-    price: 5.50,
+    price: 6.00,
     size: "3.5oz",
-    description: "Caramel-apple and rich caramel suckers transformed into crunchy, stick-free caramel crisps.",
+    description: "Rich caramel suckers transformed into crunchy, stick-free caramel crisps.",
     defaultImage: "krephoto/caramel_pops.jpg",
     pickupOnly: true,
     flavors: []
@@ -232,8 +234,8 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Duds",
     category: "Chocolate & Caramel",
     price: 6.00,
-    size: "4oz",
-    description: "Chocolate-covered caramels exploded into giant, crisp caramel malt-like nuggets.",
+    size: "2oz",
+    description: "Chocolate-covered caramels exploded into giant, crisp caramel nuggets.",
     defaultImage: "krephoto/duds.jpg",
     flavors: []
   },
@@ -242,7 +244,7 @@ window.PRODUCTS = window.PRODUCTS || [
     title: "Charlies",
     category: "Chocolate & Caramel",
     price: 6.00,
-    size: "4oz",
+    size: "2oz",
     description: "Fluffy nougat and rich chocolate bars turned into light-as-air crisp honeycomb bites.",
     defaultImage: "krephoto/charlies.jpg",
     flavors: []
@@ -251,31 +253,55 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "cluster-bombs",
     title: "Cluster Bombs",
     category: "Chocolate & Caramel",
-    price: 6.50,
-    size: "4oz",
+    price: 6.00,
+    size: "1.5oz",
     description: "Gummy, crunchy, tangy candy clusters blasted into crunchy flavor meteorites.",
     defaultImage: "krephoto/cluster_bombs.jpg",
     flavors: []
   },
   {
     handle: "peanut-brittle",
-    title: "Homemade Peanut Brittle",
+    title: "Brittle",
     category: "Chocolate & Caramel",
-    price: 6.50,
-    size: "4.5oz",
-    description: "Small-batch, homemade roasted peanut brittle freeze-dried for an ultra-light, buttery snap.",
+    price: 6.00,
+    size: "2.5oz",
+    description: "Small-batch homemade brittle freeze-dried for an ultra-light, buttery snap.",
     defaultImage: "krephoto/peanut_brittle.jpg",
     flavors: []
   },
 
   // --- Novelty, Spicy & Meltaways ---
   {
+    handle: "lemon-puffs",
+    title: "Lemon Puffs",
+    category: "Meltaways",
+    price: 6.00,
+    size: "2.5oz",
+    description: "Bright citrus drops expanded into airy candy clouds that melt in seconds.",
+    defaultImage: "krephoto/lemon_puffs.JPEG",
+    flavors: [
+      { name: "Original", size: "2.5oz", image: "krephoto/lemon_puffs.JPEG" },
+      { name: "Sour Cherry", size: "2.5oz", image: "krephoto/sour_cherry_puffs.jpeg" },
+      { name: "Blue Raspberry", size: "2.5oz", image: "krephoto/blue_raspberry_puffs.jpeg" }
+    ]
+  },
+  {
+    handle: "candy-corn",
+    title: "Candy Corn",
+    category: "Meltaways",
+    price: 6.00,
+    size: "2.5oz",
+    description: "Traditional seasonal candy corn puffed into airy, melt-in-your-mouth crispy bites.",
+    defaultImage: "krephoto/candy_corn.jpeg",
+    flavors: []
+  },
+  {
     handle: "power-pellets",
     title: "Power Pellets",
     category: "Meltaways",
-    price: 5.50,
+    price: 6.00,
     size: "3.5oz",
-    description: "Tangy, tart-compressed candies that puff into instantly melting power pellets.",
+    description: "Tangy tart-compressed candies that puff into instantly melting power pellets.",
     defaultImage: "krephoto/power_pellets.JPEG",
     flavors: []
   },
@@ -283,8 +309,8 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "bit-o-honey",
     title: "Bit-O-Honey",
     category: "Meltaways",
-    price: 5.50,
-    size: "3.5oz",
+    price: 6.00,
+    size: "1oz",
     description: "Pure honey candy freeze-dried into crunchy, sweet golden honeycomb crystals.",
     defaultImage: "krephoto/bit-o-honey.jpg",
     flavors: []
@@ -293,41 +319,29 @@ window.PRODUCTS = window.PRODUCTS || [
     handle: "watermelon-pops",
     title: "Watermelon Pops",
     category: "Meltaways",
-    price: 5.00,
-    size: "3oz",
+    price: 6.00,
+    size: "2oz",
     description: "Sweet and tangy watermelon lollipops turned into airy, crunchy flavor sponges.",
     defaultImage: "krephoto/watermelon_pops.jpg",
     flavors: []
   },
   {
-    handle: "lemon-puffs",
-    title: "Lemon Puffs",
+    handle: "red-hots",
+    title: "Red Hots",
     category: "Meltaways",
-    price: 5.00,
-    size: "3oz",
-    description: "Bright, zesty lemon drops expanded into airy citrus clouds that melt in seconds.",
-    defaultImage: "krephoto/lemon_puffs.JPEG",
-    flavors: []
-  },
-  {
-    handle: "hot-hot-hot",
-    title: "Hot, Hot, Hot",
-    category: "Meltaways",
-    price: 5.50,
-    size: "3oz",
-    description: "Fiery cinnamon balls puffed up into crunchy spheres packed with serious cinnamon heat.",
+    price: 6.00,
+    size: "2oz",
+    description: "Fiery cinnamon balls puffed up into crunchy spheres packed with serious heat.",
     defaultImage: "krephoto/hot_hot_hot.jpg",
     flavors: []
   }
 ];
 
-// Active filter category
 window.currentCategory = "All";
 
 // 2. Cart Engine
 var CART_KEY = "kreeze-cart";
 var cart = {
-
   getShippingFee() {
     const totalItems = this.count();
     if (totalItems === 0) return 0;
@@ -346,7 +360,7 @@ var cart = {
     localStorage.setItem(CART_KEY, JSON.stringify(this.items));
     this.render();
   },
-  add(handle, qty = 1, flavor = "") {
+  add(handle, qty = 1, flavor = "", customSize = "") {
     const p = PRODUCTS.find(p => p.handle === handle);
     if (!p) return;
 
@@ -357,7 +371,13 @@ var cart = {
     if (ex) {
       ex.qty += qty;
     } else {
-      this.items.push({ id: cartItemId, handle: handle, flavor: selectedFlavor, qty: qty });
+      this.items.push({ 
+        id: cartItemId, 
+        handle: handle, 
+        flavor: selectedFlavor, 
+        size: customSize || p.size,
+        qty: qty 
+      });
     }
     this.save();
     openDrawer();
@@ -411,7 +431,7 @@ var cart = {
       body.innerHTML = this.items.map(i => {
         const p = PRODUCTS.find(prod => prod.handle === i.handle);
         const title = p ? p.title : i.handle;
-        const flavorText = i.flavor ? `<span style="font-size:0.8rem; color:var(--coral); font-weight:700; display:block;">Flavor: ${i.flavor}</span>` : "";
+        const flavorText = i.flavor ? `<span style="font-size:0.8rem; color:var(--coral); font-weight:700; display:block;">Flavor: ${i.flavor} (${i.size || p?.size})</span>` : "";
         const price = p ? p.price * i.qty : 0;
 
         let itemImage = p ? p.defaultImage : '';
@@ -420,8 +440,10 @@ var cart = {
           if (match && match.image) itemImage = match.image;
         }
 
+        const imgTag = itemImage ? `<img src="${itemImage}" alt="${title}">` : `<div style="width:64px;height:64px;border-radius:.75rem;border:2px solid var(--ink);background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:1.5rem">🍬</div>`;
+
         return `<div class="line">
-          <img src="${itemImage}" alt="${title}">
+          ${imgTag}
           <div class="info">
             <strong>${title}</strong>
             ${flavorText}
@@ -441,26 +463,39 @@ var cart = {
   },
 };
 
-// 3. Dropdown Change Listener (Changes Image)
+// 3. Dropdown Change Listener (Changes Image & Size Badge Dynamically)
 function handleFlavorChange(selectEl) {
   const selectedOption = selectEl.options[selectEl.selectedIndex];
   const newImgSrc = selectedOption.getAttribute("data-image");
+  const newSize = selectedOption.getAttribute("data-size");
   const card = selectEl.closest(".card");
-  if (card && newImgSrc) {
-    const cardImg = card.querySelector(".img img");
-    if (cardImg) cardImg.src = newImgSrc;
+  
+  if (card) {
+    if (newImgSrc) {
+      const cardImg = card.querySelector(".img img");
+      if (cardImg) cardImg.src = newImgSrc;
+    }
+    if (newSize) {
+      const badge = card.querySelector(".badge");
+      if (badge) badge.textContent = newSize;
+    }
   }
 }
 
-// 4. Add to Bag with Selected Dropdown Value
+// 4. Add to Bag with Selected Dropdown Value and Size
 function addProductFromCard(btnEl, handle) {
   const card = btnEl.closest(".card");
   let chosenFlavor = "";
+  let chosenSize = "";
   if (card) {
     const select = card.querySelector(".flavor-select");
-    if (select) chosenFlavor = select.value;
+    if (select) {
+      chosenFlavor = select.value;
+      const selectedOption = select.options[select.selectedIndex];
+      chosenSize = selectedOption.getAttribute("data-size") || "";
+    }
   }
-  cart.add(handle, 1, chosenFlavor);
+  cart.add(handle, 1, chosenFlavor, chosenSize);
 }
 
 // 5. Filter Category for Shop Page
@@ -485,24 +520,33 @@ function renderAllGrids() {
   const buildCardHTML = (p, idx, gridPrefix = "grid") => {
     const hasFlavors = p.flavors && p.flavors.length > 0;
     const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+    const initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
 
-    const dropdownHTML = (hasFlavors && p.flavors.length > 0) ? `
+    const dropdownHTML = hasFlavors ? `
       <div class="flavor-select-container">
         <label class="flavor-label" for="flavor-${gridPrefix}-${p.handle}-${idx}">Flavor:</label>
         <select id="flavor-${gridPrefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-image="${f.image}">${f.name}</option>`).join("")}
+          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image || ''}">${f.name}</option>`).join("")}
         </select>
       </div>
     ` : '';
 
+    const imageElement = initialImg 
+      ? `<img src="${initialImg}" alt="${p.title}">` 
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--pink);">🍬</div>`;
+
     return `
       <div class="card">
         <div class="img ${bgs[idx % bgs.length]}">
-          <span class="badge">${p.size}</span>
-          <img src="${initialImg}" alt="${p.title}">
+          <span class="badge">${initialSize}</span>
+          <a href="product.html?item=${p.handle}" style="display:block; width:100%; height:100%;">
+            ${imageElement}
+          </a>
         </div>
         <div class="body">
-          <h3>${p.title}</h3>
+          <a href="product.html?item=${p.handle}">
+            <h3 style="cursor:pointer">${p.title}</h3>
+          </a>
           <p class="desc">${p.description}</p>
           ${dropdownHTML}
           <div class="row">
@@ -514,12 +558,10 @@ function renderAllGrids() {
     `;
   };
 
-  // Render Home Page (Featured)
   if (featuredEl) {
     featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i, "home")).join("");
   }
 
-  // Render Shop Page
   if (shopEl) {
     let list = PRODUCTS;
     if (window.currentCategory && window.currentCategory !== "All") {
@@ -529,31 +571,92 @@ function renderAllGrids() {
   }
 }
 
-// Toggle Shipping Address inputs based on Fulfillment radio buttons
-function toggleShippingAddressFields(showShipping) {
-  const addressContainer = document.getElementById('shipping-address-fields');
-  const shipAddress = document.getElementById('ship-address');
-  const shipCity = document.getElementById('ship-city');
-  const shipState = document.getElementById('ship-state');
-  const shipZip = document.getElementById('ship-zip');
+// 7. Dynamic Product Detail Page Loader (for product.html)
+function adjustPdpQty(delta) {
+  const qtyEl = document.getElementById("pdp-qty");
+  if (!qtyEl) return;
+  let current = parseInt(qtyEl.textContent) || 1;
+  current = Math.max(1, current + delta);
+  qtyEl.textContent = current;
+}
 
-  if (addressContainer) {
-    addressContainer.style.display = showShipping ? 'block' : 'none';
+function loadProductDetailPage() {
+  const container = document.getElementById("pdp-container");
+  if (!container) return; // Not on product.html
+
+  const params = new URLSearchParams(window.location.search);
+  const handle = params.get("item");
+  const p = PRODUCTS.find(prod => prod.handle === handle) || PRODUCTS[0];
+
+  if (!p) return;
+
+  document.title = `${p.title} - Kreeze Candies`;
+  const metaTitle = document.getElementById("pdp-meta-title");
+  if (metaTitle) metaTitle.textContent = `${p.title} - Kreeze Candies`;
+
+  document.getElementById("pdp-title").textContent = p.title;
+  document.getElementById("pdp-price").textContent = `$${p.price.toFixed(2)}`;
+  document.getElementById("pdp-desc").textContent = p.description;
+
+  const hasFlavors = p.flavors && p.flavors.length > 0;
+  const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+  const initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
+
+  const imgContainer = document.getElementById("pdp-img-container");
+  if (initialImg) {
+    imgContainer.innerHTML = `<img id="pdp-image" src="${initialImg}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover;">`;
+  } else {
+    imgContainer.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--pink);">🍬</div>`;
   }
 
-  // Toggle 'required' attributes so form validation passes when pickup is chosen
-  if (shipAddress) shipAddress.required = showShipping;
-  if (shipCity) shipCity.required = showShipping;
-  if (shipState) shipState.required = showShipping;
-  if (shipZip) shipZip.required = showShipping;
+  document.getElementById("pdp-size").textContent = initialSize;
 
-  // Recalculate totals if shipping function exists in app.js
-  if (typeof updateCheckoutTotals === 'function') {
-    updateCheckoutTotals();
+  const flavorArea = document.getElementById("pdp-flavor-area");
+  if (hasFlavors) {
+    flavorArea.innerHTML = `
+      <div class="flavor-select-container">
+        <label class="flavor-label" for="pdp-flavor-select">Flavor:</label>
+        <select id="pdp-flavor-select" class="flavor-select" onchange="handlePdpFlavorChange(this)">
+          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image || ''}">${f.name} (${f.size || p.size})</option>`).join("")}
+        </select>
+      </div>
+    `;
+  } else {
+    flavorArea.innerHTML = "";
+  }
+
+  const addBtn = document.getElementById("pdp-add-btn");
+  if (addBtn) {
+    addBtn.onclick = function() {
+      const qty = parseInt(document.getElementById("pdp-qty").textContent) || 1;
+      let chosenFlavor = "";
+      let chosenSize = p.size;
+      const select = document.getElementById("pdp-flavor-select");
+      if (select) {
+        chosenFlavor = select.value;
+        const opt = select.options[select.selectedIndex];
+        chosenSize = opt.getAttribute("data-size") || p.size;
+      }
+      cart.add(p.handle, qty, chosenFlavor, chosenSize);
+    };
   }
 }
 
-// 7. Drawer & Modal Controls
+function handlePdpFlavorChange(selectEl) {
+  const selectedOption = selectEl.options[selectEl.selectedIndex];
+  const newImgSrc = selectedOption.getAttribute("data-image");
+  const newSize = selectedOption.getAttribute("data-size");
+  
+  const imgEl = document.getElementById("pdp-image");
+  if (imgEl && newImgSrc) {
+    imgEl.src = newImgSrc;
+  }
+  if (newSize) {
+    document.getElementById("pdp-size").textContent = newSize;
+  }
+}
+
+// 8. Drawer & Modal Controls
 function openDrawer() {
   document.getElementById("drawer")?.classList.add("open");
   document.getElementById("drawer-scrim")?.classList.add("open");
@@ -579,7 +682,6 @@ function checkout() {
   if (form) form.style.display = "block";
   if (screen) screen.style.display = "none";
 
-  // Check for pickup-only items in cart
   if (cart.hasPickupOnlyItems()) {
     if (shippingOption) shippingOption.disabled = true;
     document.getElementById("delivery-pickup").checked = true;
@@ -595,16 +697,25 @@ function checkout() {
   document.getElementById("checkout-modal")?.classList.add("open");
   document.getElementById("checkout-scrim")?.classList.add("open");
 }
+
 function toggleShippingAddressFields(isShipping) {
   const addrFields = document.getElementById("shipping-address-fields");
+  const shipAddress = document.getElementById('ship-address');
+  const shipCity = document.getElementById('ship-city');
+  const shipState = document.getElementById('ship-state');
+  const shipZip = document.getElementById('ship-zip');
+
   if (addrFields) {
     addrFields.style.display = isShipping ? "block" : "none";
-    document.querySelectorAll("#shipping-address-fields input").forEach(input => {
-      input.required = isShipping;
-    });
   }
+  if (shipAddress) shipAddress.required = isShipping;
+  if (shipCity) shipCity.required = isShipping;
+  if (shipState) shipState.required = isShipping;
+  if (shipZip) shipZip.required = isShipping;
+
   updateCheckoutTotals();
 }
+
 function updateCheckoutTotals() {
   const isShipping = document.getElementById("delivery-shipping")?.checked;
   const subtotal = cart.total();
@@ -617,6 +728,7 @@ function updateCheckoutTotals() {
   if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
   if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
 }
+
 function closeCheckoutModal() {
   document.getElementById("checkout-modal")?.classList.remove("open");
   document.getElementById("checkout-scrim")?.classList.remove("open");
@@ -673,8 +785,9 @@ function processOrder(event) {
     const p = PRODUCTS.find(prod => prod.handle === item.handle) || {};
     const title = p.title || item.handle;
     const flavorTag = item.flavor ? ` (${item.flavor})` : "";
+    const sizeTag = item.size ? ` [${item.size}]` : "";
     const price = p.price || 6.00;
-    return `- ${title}${flavorTag} (x${item.qty}) — $${(price * item.qty).toFixed(2)}`;
+    return `- ${title}${flavorTag}${sizeTag} (x${item.qty}) — $${(price * item.qty).toFixed(2)}`;
   }).join("\n");
 
   let appName = "";
@@ -701,17 +814,17 @@ function processOrder(event) {
   }
 
   const templateParams = {
-  order_id: orderId,
-  customer_name: name,
-  customer_email: email,
-  customer_phone: phone,
-  delivery_method: deliveryType,
-  shipping_address: shippingAddressStr,
-  shipping_fee: `$${shippingFee.toFixed(2)}`, // <-- Sent to {{shipping_fee}}
-  payment_method: appName,
-  order_total: totalFormatted,                // <-- Sent to {{order_total}}
-  order_items: itemsList
-};
+    order_id: orderId,
+    customer_name: name,
+    customer_email: email,
+    customer_phone: phone,
+    delivery_method: deliveryType,
+    shipping_address: shippingAddressStr,
+    shipping_fee: `$${shippingFee.toFixed(2)}`,
+    payment_method: appName,
+    order_total: totalFormatted,
+    order_items: itemsList
+  };
 
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
@@ -751,8 +864,10 @@ function processOrder(event) {
     submitBtn.innerText = "Place Order & Pay";
   }
 }
-// 8. Load Grids
+
+// 9. Initialize
 document.addEventListener("DOMContentLoaded", () => {
   cart.render();
   renderAllGrids();
+  loadProductDetailPage();
 });

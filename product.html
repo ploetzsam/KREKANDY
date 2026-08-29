@@ -3,11 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About Us - Kreeze Candies</title>
-<meta name="description" content="Learn about Kreeze Candies - crafting small-batch freeze-dried treats for local Candy Shack pickup in Machias, NY.">
-<meta property="og:title" content="About Us - Kreeze Candies">
-<meta property="og:description" content="Learn about Kreeze Candies - crafting small-batch freeze-dried treats for local Candy Shack pickup in Machias, NY.">
-<meta property="og:type" content="website">
+<title id="pdp-meta-title">Product Details - Kreeze Candies</title>
+<meta name="description" content="Small-batch freeze-dried candy crafted for local Candy Shack pickup or direct shipping.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -22,9 +19,9 @@
     </a>
     <nav class="nav">
       <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
+      <a href="shop.html" class="active">Shop</a>
       <a href="pickup.html">Candy Shack Pickup</a>
-      <a href="about.html" class="active">About</a>
+      <a href="about.html">About</a>
     </nav>
     <div class="header-actions">
       <div class="cart-wrap">
@@ -36,61 +33,35 @@
   </div>
   <nav class="mobile-nav" id="mobile-nav">
     <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
+    <a href="shop.html" class="active">Shop</a>
     <a href="pickup.html">Candy Shack Pickup</a>
-    <a href="about.html" class="active">About</a>
+    <a href="about.html">About</a>
   </nav>
 </header>
 
-<section class="section" style="padding-bottom:2rem">
-  <div class="container">
-    <span class="chip">🍬 Made with Love</span>
-    <h1 style="font-family:'Fredoka',sans-serif; font-size:clamp(2.5rem,7vw,4.5rem); line-height:.95; margin-top:1.25rem">
-      Welcome to <span style="color:var(--coral)">Kreeze Candies</span>
-    </h1>
-    <p style="margin-top:1.25rem; color:var(--muted); font-size:1.1rem; max-width:36rem">
-      Crafting sweet moments and bringing delicious, puffy freeze-dried treats directly to you at the Candy Shack.
-    </p>
+<section class="container pdp" id="pdp-container">
+  <div class="imgwrap" id="pdp-img-container">
+    <img id="pdp-image" src="" alt="">
   </div>
-</section>
+  <div>
+    <a href="shop.html" style="color:var(--muted);font-size:.85rem; font-weight:700;">← Back to shop</a>
+    <h1 id="pdp-title" style="margin-top:0.5rem">Loading...</h1>
+    <span class="chip" id="pdp-size" style="margin-top:0.75rem">0oz</span>
+    <div class="price" id="pdp-price" style="margin-top:0.75rem">$6.00</div>
+    <p class="desc" id="pdp-desc" style="margin-top:1rem"></p>
 
-<section class="section" style="padding-top:0">
-  <div class="container">
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start;">
-      
-      <div class="step">
-        <h2 style="font-family:'Fredoka',sans-serif; margin-bottom: 1rem;">About Us</h2>
-        <p style="color:var(--ink); line-height: 1.6; margin-bottom: 1.5rem;">
-          Kreeze Candies is family owned, and our number one goal is to make perfectly puffed candy that everyone can enjoy. This unique process results in easier chewing and more flavorful candy. We appreciate you stopping by and taking the time to check out our website!
-        </p>
+    <!-- Flavor selector container (injected if flavors exist) -->
+    <div id="pdp-flavor-area" style="max-width:280px; margin-top:1.25rem;"></div>
 
-        <hr style="border: 0; border-top: 2px dashed var(--ink); margin: 1.5rem 0;">
-
-        <h3 style="font-family:'Fredoka',sans-serif; margin-bottom: 1rem; color: var(--coral);">Get in Touch</h3>
-        <ul style="list-style: none; padding: 0; font-size: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
-          <li>
-            <strong>Email:</strong><br>
-            <a href="mailto:KreCandy@gmail.com" style="color:var(--coral); font-weight:700; text-decoration:underline;">KreCandy@gmail.com</a>
-          </li>
-          <li>
-            <strong>Phone:</strong><br>
-            <a href="tel:7165727980" style="color:var(--coral); font-weight:700;">(716) 572-7980</a>
-          </li>
-          <li>
-            <strong>Candy Shack Pickup Location:</strong><br>
-            8435 Route 240<br>
-            Machias, NY 14101
-          </li>
-        </ul>
+    <p style="margin-top:1rem;font-size:.9rem;color:var(--muted)">Made fresh in small batches for local Candy Shack pickup or direct shipping.</p>
+    
+    <div class="actions" style="margin-top:1.5rem;">
+      <div class="qty">
+        <button type="button" onclick="adjustPdpQty(-1)">−</button>
+        <span id="pdp-qty">1</span>
+        <button type="button" onclick="adjustPdpQty(1)">+</button>
       </div>
-
-      <div class="step">
-        <h2 style="font-family:'Fredoka',sans-serif; margin-bottom: 1rem;">Find Us</h2>
-        <div style="border-radius: 1rem; border: 2px solid var(--ink); overflow: hidden; box-shadow: var(--shadow-pop); height: 350px;">
-          <iframe src="https://www.google.com/maps/embed?pb=!4v1786591147377!6m8!1m7!1sk5WFbPYQA38Xz93o1av7oQ!2m2!1d42.36516080184818!2d-78.6065660272506!3f232.8228640234936!4f0.09505773325088285!5f0.7820865974627469" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-      </div>
-
+      <button class="btn btn-primary btn-lg" id="pdp-add-btn" type="button">Add to Bag</button>
     </div>
   </div>
 </section>
