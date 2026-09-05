@@ -1,4 +1,15 @@
-// EmailJS Initialization
+// ==========================================
+// 💡 CONFIGURATION: SALES TAX
+// ==========================================
+// NY standard rate (Machias / Cattaraugus County = 8.00% or 0.08)
+window.SALES_TAX_RATE = 0.08;
+
+function getCalculatedTax(subtotal) {
+  const rate = typeof window.SALES_TAX_RATE === "number" ? window.SALES_TAX_RATE : 0.08;
+  return Math.round(subtotal * rate * 100) / 100;
+}
+
+// EmailJS Initialization for GitHub Pages
 if (typeof emailjs !== "undefined") {
   emailjs.init("9BQ6lNs0zSSHVD459");
 }
@@ -463,7 +474,7 @@ var cart = {
   },
 };
 
-// 3. Dropdown Change Listener (Changes Image & Size Badge Dynamically)
+// 3. Dropdown Change Listener
 function handleFlavorChange(selectEl) {
   const selectedOption = selectEl.options[selectEl.selectedIndex];
   const newImgSrc = selectedOption.getAttribute("data-image");
@@ -482,7 +493,7 @@ function handleFlavorChange(selectEl) {
   }
 }
 
-// 4. Add to Bag with Selected Dropdown Value and Size
+// 4. Add to Bag
 function addProductFromCard(btnEl, handle) {
   const card = btnEl.closest(".card");
   let chosenFlavor = "";
@@ -498,7 +509,7 @@ function addProductFromCard(btnEl, handle) {
   cart.add(handle, 1, chosenFlavor, chosenSize);
 }
 
-// 5. Filter Category for Shop Page
+// 5. Filter Category
 function filterCategory(categoryName) {
   window.currentCategory = categoryName;
   document.querySelectorAll(".category-pill").forEach(pill => {
@@ -511,7 +522,7 @@ function filterCategory(categoryName) {
   renderAllGrids();
 }
 
-// 6. Unified Renderer for both index.html (Featured) and shop.html
+// 6. Unified Renderer
 function renderAllGrids() {
   const featuredEl = document.getElementById("product-grid");
   const shopEl = document.getElementById("shop-product-grid");
@@ -571,7 +582,7 @@ function renderAllGrids() {
   }
 }
 
-// 7. Dynamic Product Detail Page Loader (for product.html)
+// 7. Dynamic Product Detail Page Loader
 function adjustPdpQty(delta) {
   const qtyEl = document.getElementById("pdp-qty");
   if (!qtyEl) return;
@@ -582,7 +593,7 @@ function adjustPdpQty(delta) {
 
 function loadProductDetailPage() {
   const container = document.getElementById("pdp-container");
-  if (!container) return; // Not on product.html
+  if (!container) return;
 
   const params = new URLSearchParams(window.location.search);
   const handle = params.get("item");
@@ -690,6 +701,8 @@ function checkout() {
   } else {
     if (shippingOption) shippingOption.disabled = false;
     if (shippingNotice) shippingNotice.style.display = "none";
+    if (shippingOption) shippingOption.checked = true;
+    toggleShippingAddressFields(true);
   }
 
   updateCheckoutTotals();
@@ -704,6 +717,7 @@ function toggleShippingAddressFields(isShipping) {
   const shipCity = document.getElementById('ship-city');
   const shipState = document.getElementById('ship-state');
   const shipZip = document.getElementById('ship-zip');
+  const shippingRow = document.getElementById('checkout-shipping-row');
 
   if (addrFields) {
     addrFields.style.display = isShipping ? "block" : "none";
@@ -713,6 +727,8 @@ function toggleShippingAddressFields(isShipping) {
   if (shipState) shipState.required = isShipping;
   if (shipZip) shipZip.required = isShipping;
 
+  if (shippingRow) shippingRow.style.display = isShipping ? "flex" : "none";
+
   updateCheckoutTotals();
 }
 
@@ -720,12 +736,17 @@ function updateCheckoutTotals() {
   const isShipping = document.getElementById("delivery-shipping")?.checked;
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  const grandTotal = subtotal + shippingFee;
+  const salesTax = getCalculatedTax(subtotal);
+  const grandTotal = subtotal + shippingFee + salesTax;
 
+  const subtotalDisplay = document.getElementById("checkout-subtotal");
   const feeDisplay = document.getElementById("checkout-shipping-fee");
+  const taxDisplay = document.getElementById("checkout-tax-fee");
   const totalDisplay = document.getElementById("checkout-grand-total");
 
+  if (subtotalDisplay) subtotalDisplay.innerText = `$${subtotal.toFixed(2)}`;
   if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
+  if (taxDisplay) taxDisplay.innerText = `$${salesTax.toFixed(2)}`;
   if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
 }
 
@@ -739,6 +760,7 @@ function processOrder(event) {
 
   const phoneInput = document.getElementById("cust-phone")?.value || "";
   const cleanPhone = phoneInput.replace(/\D/g, '');
+  const formattedPhone = `(${cleanPhone.slice(0,3)}) ${cleanPhone.slice(3,6)}-${cleanPhone.slice(6)}`;
 
   if (cleanPhone.length !== 10) {
     alert("Please enter a valid 10-digit phone number!");
@@ -775,7 +797,8 @@ function processOrder(event) {
 
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  const grandTotal = subtotal + shippingFee;
+  const salesTax = getCalculatedTax(subtotal);
+  const grandTotal = subtotal + shippingFee + salesTax;
   const totalFormatted = "$" + grandTotal.toFixed(2);
   const numericAmount = grandTotal.toFixed(2);
 
@@ -813,29 +836,59 @@ function processOrder(event) {
       break;
   }
 
+  // Generate current timestamp in US Eastern Time
+  const now = new Date();
+  const orderTimestamp = now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
   const templateParams = {
     order_id: orderId,
+    order_date: orderTimestamp,
     customer_name: name,
     customer_email: email,
-    customer_phone: phone,
+    customer_phone: formattedPhone,
     delivery_method: deliveryType,
     shipping_address: shippingAddressStr,
     shipping_fee: `$${shippingFee.toFixed(2)}`,
+    sales_tax: `$${salesTax.toFixed(2)}`,
     payment_method: appName,
     order_total: totalFormatted,
     order_items: itemsList
   };
 
+  // 1. Dispatch EmailJS notification
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
       .then(function(response) {
-        console.log("Email successfully sent!", response.status, response.text);
+        console.log("Order email sent!", response.status, response.text);
       })
       .catch(function(error) {
-        console.error("EmailJS error:", error);
+        console.error("EmailJS dispatch error:", error);
       });
   }
 
+  // 2. Auto-log order into Google Sheet
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxROUil2fSrbRJQiPikhD2rvRSXMorTdJxydJdE9wT9hyBpNtq2isFJRRvXHWNb0Zs9xA/exec";
+
+  if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.indexOf("PASTE_") === -1) {
+    fetch(GOOGLE_SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(templateParams)
+    }).catch(function(err) {
+      console.error("Sheet auto-log error:", err);
+    });
+  }
+
+  // 3. Populate confirmation screen
   if (document.getElementById("conf-order-id")) document.getElementById("conf-order-id").innerText = `#${orderId}`;
   if (document.getElementById("conf-total")) document.getElementById("conf-total").innerText = totalFormatted;
   if (document.getElementById("conf-app-name")) document.getElementById("conf-app-name").innerText = appName;

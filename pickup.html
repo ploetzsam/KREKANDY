@@ -1,244 +1,342 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Candy Shack Pickup - Kreeze Candies</title>
-<meta name="description" content="Order online and skip the line. Pick up your freeze-dried Kreeze Candies fresh at the Candy Shack - no shipping, no waiting.">
-<meta property="og:title" content="Candy Shack Pickup - Kreeze Candies">
-<meta property="og:description" content="Order online and skip the line. Pick up your freeze-dried Kreeze Candies fresh at the Candy Shack - no shipping, no waiting.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shipping & Pickup - Kreeze Candies</title>
+  <link rel="icon" type="image/png" href="images/logo1.png">
+  <meta name="description"
+    content="Nationwide shipping on freeze-dried candy across the US, plus free local Candy Shack pickup in Machias, NY.">
+  <meta property="og:title" content="Shipping & Pickup - Kreeze Candies">
+  <meta property="og:description"
+    content="Nationwide shipping on freeze-dried candy across the US, plus free local Candy Shack pickup in Machias, NY.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="header">
-  <div class="container header-inner">
-    <a class="logo" href="index.html">
-      <img src="images/logo.png" alt="Kreeze Candies" style="height: 40px; width: auto;">
-    </a>
-    <nav class="nav">
+  <header class="header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img src="images/logo.png" alt="Kreeze Candies" style="height: 40px; width: auto;">
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="pickup.html" class="active">Shipping & Pickup</a>
+        <a href="track.html">Track Order</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-actions">
+        <div class="cart-wrap">
+          <button class="icon-btn" aria-label="Open cart" onclick="openDrawer()">🛒</button>
+          <span class="cart-count" style="display:none">0</span>
+        </div>
+        <button class="icon-btn hamburger" aria-label="Menu" onclick="toggleMobileNav()">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav">
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
-      <a href="pickup.html" class="active">Candy Shack Pickup</a>
+      <a href="pickup.html" class="active">Shipping & Pickup</a>
+      <a href="track.html">Track Order</a>
       <a href="about.html">About</a>
     </nav>
-    <div class="header-actions">
-      <div class="cart-wrap">
-        <button class="icon-btn" aria-label="Open cart" onclick="openDrawer()">🛒</button>
-        <span class="cart-count" style="display:none">0</span>
-      </div>
-      <button class="icon-btn hamburger" aria-label="Menu" onclick="toggleMobileNav()">☰</button>
-    </div>
-  </div>
-  <nav class="mobile-nav" id="mobile-nav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="pickup.html" class="active">Candy Shack Pickup</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
+  </header>
 
-<section class="section" style="padding-bottom:2rem">
-  <div class="container hero-grid">
-    <div>
-      <span class="chip">📍 Local Only</span>
-      <h1 style="font-family:'Fredoka',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);line-height:.95;margin-top:1.25rem">Candy Shack <span style="color:var(--coral)">Pickup</span></h1>
-      <p style="margin-top:1.25rem;color:var(--muted);font-size:1.1rem;max-width:32rem">The Candy Shack is where the magic drops. Order online, skip the line, and pick up your treats fresh - the second they're bagged.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="shop.html">Start Ordering</a>
-        <div class="hours">
-          <p class="lbl">Shack Hours</p>
-          <p>TBD</p>
-          <p>TBD</p>
+  <section class="section" style="padding-bottom:2rem">
+    <div class="container hero-grid">
+      <div>
+        <span class="chip">📦 Nationwide Delivery</span>
+        <h1
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);line-height:.95;margin-top:1.25rem">
+          Fast US Shipping & <span style="color:var(--coral)">Local Pickup</span>
+        </h1>
+        <p style="margin-top:1.25rem;color:var(--muted);font-size:1.1rem;max-width:34rem">
+          We heat-seal every batch fresh and ship right to your doorstep across the country. Prefer to grab your sweets
+          in person? Local pickup at our Candy Shack in Machias is always free!
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="shop.html">Start Your Order →</a>
+        </div>
+      </div>
+      <div style="position:relative;height:320px">
+        <div
+          style="position:absolute;inset:0;border-radius:1.5rem;border:2px solid var(--ink);overflow:hidden;box-shadow:var(--shadow-pop);background:var(--pink)">
+          <img src="images/730332940_1013072911694565_5208425717835.jpg" alt="Fresh freeze-dried Kreeze Candies"
+            style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <span
+          style="position:absolute;top:-16px;left:-16px;background:var(--sunshine);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:1.1rem;transform:rotate(-6deg);box-shadow:var(--shadow-pop)">Ships
+          Everywhere</span>
+        <span
+          style="position:absolute;bottom:-16px;right:24px;background:var(--cream);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:.9rem;transform:rotate(3deg);box-shadow:var(--shadow-pop)">Always
+          Sealed Fresh</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:0.5rem">Two Ways to Get Your Order</h2>
+      <p style="text-align:center;color:var(--muted);margin-bottom:2.5rem">Choose your preference directly inside the
+        checkout bag.</p>
+
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="step" style="border: 3px solid var(--coral);">
+          <div class="ic c1">📦</div>
+          <h3>1. Direct US Postal Shipping</h3>
+          <p style="margin-top:0.5rem; line-height: 1.6;">
+            <strong>Available Nationwide:</strong> We pack orders in protective, moisture-resistant packaging so your
+            freeze-dried candy arrives fresh, light, and undamaged.
+          </p>
+          <ul style="margin: 1rem 0 0 1.25rem; font-size: 0.9rem; color: var(--muted); line-height: 1.6;">
+            <li><strong>Flat Tiered Rate:</strong> $10 for up to 5 items ($1 for each additional item).</li>
+            <li><strong>Fast Dispatch:</strong> Orders process and ship within 1–3 business days.</li>
+            <li><strong>Doorstep Delivery:</strong> Delivered via USPS priority carrier with tracking.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <div class="ic c3">📍</div>
+          <h3>2. Local Candy Shack Pickup</h3>
+          <p style="margin-top:0.5rem; line-height: 1.6;">
+            <strong>Free for Locals:</strong> Visiting or living near Machias, NY? Pick up your order directly at the
+            Candy Shack and skip delivery fees entirely.
+          </p>
+          <ul style="margin: 1rem 0 0 1.25rem; font-size: 0.9rem; color: var(--muted); line-height: 1.6;">
+            <li><strong>Location:</strong> 8435 Route 240, Machias, NY 14101.</li>
+            <li><strong>Free Fulfillment:</strong> $0 shipping fees at checkout.</li>
+            <li><strong>Notification:</strong> We send an SMS text confirmation as soon as your bag is prepped.</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div style="position:relative;height:320px">
-      <div style="position:absolute;inset:0;border-radius:1.5rem;border:2px solid var(--ink);overflow:hidden;box-shadow:var(--shadow-pop);background:var(--pink)">
-        <img src="images/730332940_1013072911694565_5208425717835.jpg" alt="Fresh freeze-dried Kreeze Candies" style="width:100%;height:100%;object-fit:cover">
-      </div>
-      <span style="position:absolute;top:-16px;left:-16px;background:var(--sunshine);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:1.1rem;transform:rotate(-6deg);box-shadow:var(--shadow-pop)">The Candy Shack</span>
-      <span style="position:absolute;bottom:-16px;right:24px;background:var(--cream);border:2px solid var(--ink);border-radius:999px;padding:.5rem 1rem;font-family:'Fredoka',sans-serif;font-size:.9rem;transform:rotate(3deg);box-shadow:var(--shadow-pop)">Skip. The. Line.</span>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <div class="container">
-    <h2 style="text-align:center">How it works</h2>
-    <div class="steps">
-      <div class="step"><div class="ic c1">🛍</div><h3>1. Build your bag</h3><p>Browse the shop and load up your favorites. Every bag is freeze-dried in small batches.</p></div>
-      <div class="step"><div class="ic c2">📍</div><h3>2. Choose Local Pickup</h3><p>Local Pickup is the default at checkout - no shipping fees, no waiting for a courier.</p></div>
-      <div class="step"><div class="ic c3">🔔</div><h3>3. We prep it fresh</h3><p>We'll pack your order the moment it's placed and text you when it's ready at the shack.</p></div>
-      <div class="step"><div class="ic c4">🎉</div><h3>4. Skip the line</h3><p>Walk straight up to the Candy Shack, say your name, grab your bag, and crunch away.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="container">
-    <div class="faq-card">
-      <div class="faq">
-        <h2 style="font-family:'Fredoka',sans-serif">FAQ, quick and sweet.</h2>
-        <div><h4>Do you ship?</h4><p>Yes, we ship anywhere in the United States. Just choose the shipping option at checkout!</p></div>
-        <div><h4>When will my order be ready?</h4><p>Most orders are packed the same day. We'll text you the moment your bag is ready to grab.</p></div>
-        <div><h4>Where is the Candy Shack?</h4><p>We're at 8435 NY-240, Machias, NY 14101</p></div>
-      </div>
-      <div style="text-align:center">
-        <div style="border-radius:1.5rem;overflow:hidden;border:2px solid var(--ink);box-shadow:var(--shadow-pop)">
-          <img src="images/715551053_993459183655938_13445077808929.jpg" alt="Kreeze Candies freeze-dried treats" style="width:100%;height:200px;object-fit:cover">
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="faq-card">
+        <div class="faq">
+          <h2 style="font-family:'Fredoka',sans-serif">Shipping & Care FAQ</h2>
+          <div>
+            <h4>Does freeze-dried candy melt during hot weather transit?</h4>
+            <p>Unlike regular chewy candy, freeze-dried treats have almost zero moisture content! They won't melt into a
+              sticky puddle during transit, though we recommend keeping them out of direct sunlight.</p>
+          </div>
+          <div>
+            <h4>How long do freeze-dried candies stay fresh?</h4>
+            <p>Our heavy-duty, heat-sealed bags keep moisture out. Unopened bags stay crisp and fresh for months. Once
+              opened, seal the zip-top tight to keep humidity from softening the texture.</p>
+          </div>
+          <div>
+            <h4>Why are Caramel Pops marked as local pickup only?</h4>
+            <p>Our freeze-dried Caramel Pops expand into extremely delicate, giant puffs that can easily crush under
+              postal conveyor belts, so we reserve them exclusively for local pickup to guarantee quality.</p>
+          </div>
+          <div>
+            <h4>How do I pay for my shipped order?</h4>
+            <p>After submitting your order and delivery address, our checkout provides an instant direct link to
+              complete payment through Venmo, Cash App, or PayPal using your generated Order ID.</p>
+          </div>
         </div>
-        <p style="margin-top:1rem;font-size:.9rem;color:color-mix(in oklab,var(--cream) 80%,transparent)">Questions? Message us on Facebook - we answer fast.</p>
+        <div style="text-align:center">
+          <div style="border-radius:1.5rem;overflow:hidden;border:2px solid var(--ink);box-shadow:var(--shadow-pop)">
+            <img src="images/715551053_993459183655938_13445077808929.jpg" alt="Kreeze Candies freeze-dried treats"
+              style="width:100%;height:200px;object-fit:cover">
+          </div>
+          <p style="margin-top:1rem;font-size:.9rem;color:color-mix(in oklab,var(--cream) 80%,transparent)">Have a
+            question about a shipment? Call or text us anytime at (716) 572-7980.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <h5>Kreeze Candies</h5>
-        <p>Small-batch, freeze-dried candy - packed fresh and ready at the Candy Shack.</p>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <h5>Kreeze Candies</h5>
+          <p>Small-batch freeze-dried candy shipped nationwide or picked up fresh locally.</p>
+        </div>
+        <div>
+          <h5>Pickup Location</h5>
+          <ul>
+            <li>8435 Route 240, Machias, NY 14101</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Shop & Info</h5>
+          <ul>
+            <li><a href="shop.html">All Candy</a></li>
+            <li><a href="pickup.html">Shipping & Pickup</a></li>
+            <li><a href="track.html">Track Order</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="privacy-terms.html">Privacy & Terms</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h5>Visit</h5>
-        <ul>
-          <li>8435 Route 240, Machias, NY 14101</li>
-          <li>Hours:</li>
-          <li>TBD</li>
-        </ul>
-      </div>
-      <div>
-        <h5>Shop</h5>
-        <ul>
-          <li><a href="shop.html">All Candy</a></li>
-          <li><a href="pickup.html">How Pickup Works</a></li>
-          <li><a href="about.html">About Us</a></li>
-        </ul>
-      </div>
+      <p class="copy">© 2026 Kreeze Candies · Shipping Nationwide · Local Machias Pickup</p>
     </div>
-    <p class="copy">© 2026 Kreeze Candies · Local Candy Shack Pickup Only</p>
-  </div>
-</footer>
+  </footer>
 
-<div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
-<aside class="drawer" id="drawer" aria-label="Cart">
-  <div class="drawer-head">
-    <h3>Your Bag</h3>
-    <button class="icon-btn" aria-label="Close" onclick="closeDrawer()">✕</button>
-  </div>
-  <div class="drawer-body" id="drawer-body"></div>
-  <div class="drawer-foot">
-    <div class="total"><span>Total</span><span id="drawer-total">$0.00</span></div>
-    <p style="font-size:.8rem;color:var(--muted);text-align:center">Made fresh at home for local pickup.</p>
-    <button class="btn btn-primary btn-lg" onclick="checkout()">Checkout</button>
-  </div>
-</aside>
+  <div class="drawer-scrim" id="drawer-scrim" onclick="closeDrawer()"></div>
+  <aside class="drawer" id="drawer" aria-label="Cart">
+    <div class="drawer-head">
+      <h3>Your Bag</h3>
+      <button class="icon-btn" aria-label="Close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-foot">
+      <div class="total"><span>Total</span><span id="drawer-total">$0.00</span></div>
+      <p style="font-size:.8rem;color:var(--muted);text-align:center">Freshly packed · Fast US shipping & local pickup available.</p>
+      <button class="btn btn-primary btn-lg" onclick="checkout()">Checkout</button>
+    </div>
+  </aside>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="app.js"></script>
+  <!-- Loads EmailJS for GitHub Pages -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="app.js"></script>
 
-<!-- Mobile Checkout Modal -->
-<div class="drawer-scrim" id="checkout-scrim" onclick="closeCheckoutModal()"></div>
-<aside class="drawer" id="checkout-modal" aria-label="Checkout">
-  <div class="drawer-head">
-    <h3 id="checkout-title">Complete Your Order</h3>
-    <button class="icon-btn" aria-label="Close" onclick="closeCheckoutModal()">✕</button>
-  </div>
-  
-  <div class="drawer-body" id="checkout-body" style="overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2rem;">
-    <form id="checkout-form" onsubmit="processOrder(event)">
-      <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your order!</p>
-      
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
-        <input type="text" id="cust-name" required placeholder="Candy Lover" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-      </div>
+  <!-- Mobile Checkout Modal -->
+  <div class="drawer-scrim" id="checkout-scrim" onclick="closeCheckoutModal()"></div>
+  <aside class="drawer" id="checkout-modal" aria-label="Checkout">
+    <div class="drawer-head">
+      <h3 id="checkout-title">Complete Your Order</h3>
+      <button class="icon-btn" aria-label="Close" onclick="closeCheckoutModal()">✕</button>
+    </div>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
-        <input type="email" id="cust-email" required placeholder="name@example.com" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-      </div>
+    <div class="drawer-body" id="checkout-body"
+      style="overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2rem;">
+      <form id="checkout-form" onsubmit="processOrder(event)">
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted);">Enter your details to prep your shipment
+          or pickup order!</p>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
-        <input type="tel" id="cust-phone" required placeholder="(555) 000-0000" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-      </div>
+        <div style="margin-bottom: 1rem;">
+          <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Full Name</label>
+          <input type="text" id="cust-name" required placeholder="Candy Lover"
+            style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        </div>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Fulfillment Option</label>
-        <div style="display:flex; gap:1rem; margin-top:.25rem;">
-          <label style="font-size:0.9rem;">
-            <input type="radio" name="delivery" id="delivery-pickup" value="pickup" checked onchange="toggleShippingAddressFields(false)"> Candy Shack Pickup
+        <div style="margin-bottom: 1rem;">
+          <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Email Address</label>
+          <input type="email" id="cust-email" required placeholder="name@example.com"
+            style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Phone Number</label>
+          <input type="tel" id="cust-phone" required placeholder="(555) 000-0000"
+            style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Fulfillment
+            Option</label>
+          <div style="display:flex; gap:1rem; margin-top:.25rem;">
+            <label style="font-size:0.9rem;">
+              <input type="radio" name="delivery" id="delivery-shipping" value="shipping" checked
+                onchange="toggleShippingAddressFields(true)"> 📦 Direct US Shipping
+            </label>
+            <label style="font-size:0.9rem;">
+              <input type="radio" name="delivery" id="delivery-pickup" value="pickup"
+                onchange="toggleShippingAddressFields(false)"> 📍 Candy Shack Pickup
+            </label>
+          </div>
+          <p id="pickup-only-notice" style="display:none; color:var(--coral); font-size:0.8rem; margin-top:0.25rem;">
+            Contains local pickup only items (Caramel Pops).</p>
+        </div>
+
+        <div id="shipping-address-fields" style="display:block; margin-bottom: 1rem;">
+          <div style="margin-bottom: .5rem;">
+            <input type="text" id="ship-address" required placeholder="Street Address"
+              style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+          </div>
+          <div style="display:flex; gap:.5rem;">
+            <input type="text" id="ship-city" required placeholder="City"
+              style="width:50%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+            <input type="text" id="ship-state" required placeholder="State"
+              style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+            <input type="text" id="ship-zip" required placeholder="Zip"
+              style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment
+            Method</label>
+          <select id="payment-method"
+            style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
+            <option value="venmo">Venmo (@Carrie-Bunk)</option>
+            <option value="cashapp">Cash App ($CarrieBunk)</option>
+            <option value="paypal">PayPal (paypal.me/krecandy)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 1rem; font-size: 0.9rem; background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .75rem;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:.25rem;"><span>Items Subtotal:</span> <span id="checkout-subtotal">$0.00</span></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:.25rem;" id="checkout-shipping-row"><span>Shipping Fee:</span> <span id="checkout-shipping-fee">$10.00</span></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:.25rem;" id="checkout-tax-row"><span>Estimated Sales Tax:</span> <span id="checkout-tax-fee">$0.00</span></div>
+          <hr style="border:none; border-top:1px solid var(--ink); margin: .5rem 0;">
+          <div style="display:flex; justify-content:space-between; font-size:1.05rem;"><strong>Grand Total:</strong> <strong id="checkout-grand-total" style="color:var(--coral);">$0.00</strong></div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem; font-size: 0.85rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <input type="checkbox" id="legal-consent" required style="margin-top: 0.2rem; cursor: pointer;">
+          <label for="legal-consent" style="cursor: pointer; color: var(--ink);">
+            I agree to the <a href="privacy-terms.html" target="_blank"
+              style="color: var(--coral); font-weight: 700; text-decoration: underline;">Terms & Privacy Policy</a>, and
+            I acknowledge the food allergen disclosures.
           </label>
-          <label style="font-size:0.9rem;">
-            <input type="radio" name="delivery" id="delivery-shipping" value="shipping" onchange="toggleShippingAddressFields(true)"> Direct Shipping
-          </label>
         </div>
-        <p id="pickup-only-notice" style="display:none; color:var(--coral); font-size:0.8rem; margin-top:0.25rem;">Contains local pickup only items (Caramel Pops).</p>
-      </div>
 
-      <div id="shipping-address-fields" style="display:none; margin-bottom: 1rem;">
-        <div style="margin-bottom: .5rem;">
-          <input type="text" id="ship-address" placeholder="Street Address" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+        <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order &
+          Pay</button>
+      </form>
+
+      <div id="confirmation-screen" style="display:none; text-align: center;">
+        <span style="font-size: 2.5rem;">🎉</span>
+        <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
+        <p style="font-size: .9rem;">Your order has been sent to our team.</p>
+
+        <div
+          style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
+          <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id"
+              style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
+          <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total"
+              style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
+          <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
+          <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
+          <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
+            <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
+            <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
+            <li>Amount: <strong id="conf-amount">$0.00</strong></li>
+            <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
+          </ol>
         </div>
-        <div style="display:flex; gap:.5rem;">
-          <input type="text" id="ship-city" placeholder="City" style="width:50%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-          <input type="text" id="ship-state" placeholder="State" style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
-          <input type="text" id="ship-zip" placeholder="Zip" style="width:25%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; font-size:16px;">
+
+        <a id="pay-direct-link" href="#" class="btn btn-primary btn-lg"
+          style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
+
+        <div
+          style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
+          <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
+          <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>
+          <a href="tel:7165727980"
+            style="color: var(--coral); font-weight: 800; font-size: 1.05rem; text-decoration: underline;">(716)
+            572-7980</a>
         </div>
-      </div>
-
-      <div style="margin-bottom: 1.25rem;">
-        <label style="display:block; font-weight:600; margin-bottom:.25rem; font-size: 0.85rem;">Payment Method</label>
-        <select id="payment-method" style="width:100%; padding:.75rem; border-radius:.5rem; border:2px solid var(--ink); font-family:inherit; background:#fff; font-size:16px;">
-          <option value="venmo">Venmo (@Carrie-Bunk)</option>
-          <option value="cashapp">Cash App ($CarrieBunk)</option>
-          <option value="paypal">PayPal (paypal.me/krecandy)</option>
-        </select>
-      </div>
-
-      <div style="margin-bottom: 1rem; font-size: 0.9rem;">
-        <div>Shipping Fee: <span id="checkout-shipping-fee">$0.00</span></div>
-        <div><strong>Grand Total: <span id="checkout-grand-total">$0.00</span></strong></div>
-      </div>
-
-      <button type="submit" id="submit-order-btn" class="btn btn-primary btn-lg" style="width:100%">Place Order & Pay</button>
-    </form>
-
-    <div id="confirmation-screen" style="display:none; text-align: center;">
-      <span style="font-size: 2.5rem;">🎉</span>
-      <h2 style="color: var(--coral); margin: .25rem 0;">Order Submitted!</h2>
-      <p style="font-size: .9rem;">Your order has been sent to our team.</p>
-
-      <div style="background: #fff; border: 2px dashed var(--coral); padding: 1rem; border-radius: .75rem; margin: 1rem 0; text-align: left;">
-        <p style="margin-bottom: .3rem;"><strong>Order Number:</strong> <span id="conf-order-id" style="color:var(--coral); font-weight:bold;">#KC-0000</span></p>
-        <p style="margin-bottom: .3rem;"><strong>Total Amount Due:</strong> <span id="conf-total" style="font-size: 1.15rem; font-weight:bold;">$0.00</span></p>
-        <hr style="margin: .5rem 0; border: none; border-top: 1px solid #eee;">
-        <p style="font-size: .85rem; margin-bottom: .3rem;"><strong>Next Step:</strong></p>
-        <ol style="padding-left: 1.2rem; font-size: .85rem; line-height: 1.4;">
-          <li>Open <strong id="conf-app-name">Venmo</strong>.</li>
-          <li>Send payment to: <strong id="conf-handle">@Carrie-Bunk</strong></li>
-          <li>Amount: <strong id="conf-amount">$0.00</strong></li>
-          <li><strong>Note:</strong> Include Order ID (<span id="conf-pay-id">#KC-0000</span>)!</li>
-        </ol>
-      </div>
-
-      <a id="pay-direct-link" href="#" class="btn btn-primary btn-lg" style="width:100%; text-decoration:none; display:inline-block; margin-bottom: 1rem;">Open Payment App</a>
-
-      <div style="background: var(--cream); border: 2px solid var(--ink); border-radius: .75rem; padding: .85rem; font-size: .85rem;">
-        <p style="font-weight: 700; margin-bottom: .25rem;">Need help or typed the wrong info?</p>
-        <p style="color: var(--muted); margin-bottom: .5rem;">Text or call us anytime with your Order ID:</p>
-        <a href="tel:7165727980" style="color: var(--coral); font-weight: 800; font-size: 1.05rem; text-decoration: underline;">(716) 572-7980</a>
       </div>
     </div>
-  </div>
-</aside>
+  </aside>
 
 </body>
+
 </html>
