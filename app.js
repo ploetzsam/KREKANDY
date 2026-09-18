@@ -1,3 +1,17 @@
+// Broken syntax causing the JavaScript error:
+data-image="${f.image \vert{}\vert{} ''}"
+data-size="${f.size \vert{}\vert{} p.size}"
+```[cite: 14]
+
+Because `\vert` is invalid JavaScript syntax, `app.js` crashes immediately on page load, stopping `renderAllGrids()` from populating `shop.html`[cite: 14].
+
+---
+
+### The Fix
+
+Here is the clean, fixed **`app.js`** with all syntax restored so your candy items load on `shop.html`:
+
+```javascript
 // ==========================================
 // 💡 CONFIGURATION: SALES TAX
 // ==========================================
@@ -355,7 +369,7 @@ window.currentCategory = "All";
 
 // 2. Cart Engine
 var CART_KEY = "kreeze-cart";
-var cart = {
+window.cart = {
   getShippingFee() {
     const totalItems = this.count();
     if (totalItems === 0) return 0;
@@ -476,6 +490,9 @@ var cart = {
     if (totalEl) totalEl.textContent = "$" + this.total().toFixed(2);
   },
 };
+
+// Alias for internal cart reference
+var cart = window.cart;
 
 // 3. Dropdown Change Listener
 function handleFlavorChange(selectEl) {
@@ -888,7 +905,7 @@ function processOrder(event) {
     order_items: itemsList
   };
 
-  // 1. Dispatch EmailJS notification[cite: 22]
+  // 1. Dispatch EmailJS notification[cite: 14]
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
       .then(function(response) {
@@ -899,7 +916,7 @@ function processOrder(event) {
       });
   }
 
-  // 2. Auto-log order into Google Sheet[cite: 22]
+  // 2. Auto-log order into Google Sheet[cite: 14]
   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxROUil2fSrbRJQiPikhD2rvRSXMorTdJxydJdE9wT9hyBpNtq2isFJRRvXHWNb0Zs9xA/exec";
 
   if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.indexOf("PASTE_") === -1) {
@@ -913,7 +930,7 @@ function processOrder(event) {
     });
   }
 
-  // 3. Populate confirmation screen[cite: 22]
+  // 3. Populate confirmation screen[cite: 14]
   if (document.getElementById("conf-order-id")) document.getElementById("conf-order-id").innerText = `#${orderId}`;
   if (document.getElementById("conf-total")) document.getElementById("conf-total").innerText = totalFormatted;
   if (document.getElementById("conf-app-name")) document.getElementById("conf-app-name").innerText = appName;
