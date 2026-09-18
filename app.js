@@ -1,17 +1,3 @@
-// Broken syntax causing the JavaScript error:
-data-image="${f.image \vert{}\vert{} ''}"
-data-size="${f.size \vert{}\vert{} p.size}"
-```[cite: 14]
-
-Because `\vert` is invalid JavaScript syntax, `app.js` crashes immediately on page load, stopping `renderAllGrids()` from populating `shop.html`[cite: 14].
-
----
-
-### The Fix
-
-Here is the clean, fixed **`app.js`** with all syntax restored so your candy items load on `shop.html`:
-
-```javascript
 // ==========================================
 // 💡 CONFIGURATION: SALES TAX
 // ==========================================
@@ -19,7 +5,7 @@ Here is the clean, fixed **`app.js`** with all syntax restored so your candy ite
 window.SALES_TAX_RATE = 0.08;
 
 function getCalculatedTax(subtotal) {
-  const rate = typeof window.SALES_TAX_RATE === "number" ? window.SALES_TAX_RATE : 0.08;
+  var rate = typeof window.SALES_TAX_RATE === "number" ? window.SALES_TAX_RATE : 0.08;
   return Math.round(subtotal * rate * 100) / 100;
 }
 
@@ -370,32 +356,35 @@ window.currentCategory = "All";
 // 2. Cart Engine
 var CART_KEY = "kreeze-cart";
 window.cart = {
-  getShippingFee() {
-    const totalItems = this.count();
+  getShippingFee: function() {
+    var totalItems = this.count();
     if (totalItems === 0) return 0;
     if (totalItems <= 5) return 10;
     return 10 + (totalItems - 5) * 1;
   },
-  hasPickupOnlyItems() {
-    return this.items.some(item => {
-      const p = PRODUCTS.find(prod => prod.handle === item.handle);
+  hasPickupOnlyItems: function() {
+    return this.items.some(function(item) {
+      var p = window.PRODUCTS.find(function(prod) { return prod.handle === item.handle; });
       return p && p.pickupOnly;
     });
   },
-
   items: JSON.parse(localStorage.getItem(CART_KEY) || "[]"),
-  save() {
+  save: function() {
     localStorage.setItem(CART_KEY, JSON.stringify(this.items));
     this.render();
   },
-  add(handle, qty = 1, flavor = "", customSize = "") {
-    const p = PRODUCTS.find(p => p.handle === handle);
+  add: function(handle, qty, flavor, customSize) {
+    qty = qty || 1;
+    flavor = flavor || "";
+    customSize = customSize || "";
+
+    var p = window.PRODUCTS.find(function(prod) { return prod.handle === handle; });
     if (!p) return;
 
-    const selectedFlavor = flavor || (p.flavors && p.flavors.length > 0 ? p.flavors[0].name : "");
-    const cartItemId = selectedFlavor ? `${handle}__${selectedFlavor}` : handle;
+    var selectedFlavor = flavor || (p.flavors && p.flavors.length > 0 ? p.flavors[0].name : "");
+    var cartItemId = selectedFlavor ? handle + "__" + selectedFlavor : handle;
 
-    const ex = this.items.find(i => i.id === cartItemId);
+    var ex = this.items.find(function(i) { return i.id === cartItemId; });
     if (ex) {
       ex.qty += qty;
     } else {
@@ -410,15 +399,15 @@ window.cart = {
     this.save();
     openDrawer();
   },
-  increase(id) {
-    const ex = this.items.find(i => i.id === id);
+  increase: function(id) {
+    var ex = this.items.find(function(i) { return i.id === id; });
     if (ex) {
       ex.qty += 1;
       this.save();
     }
   },
-  decrease(id) {
-    const ex = this.items.find(i => i.id === id);
+  decrease: function(id) {
+    var ex = this.items.find(function(i) { return i.id === id; });
     if (ex) {
       ex.qty -= 1;
       if (ex.qty <= 0) {
@@ -428,86 +417,87 @@ window.cart = {
       }
     }
   },
-  remove(id) {
-    this.items = this.items.filter(i => i.id !== id);
+  remove: function(id) {
+    this.items = this.items.filter(function(i) { return i.id !== id; });
     this.save();
   },
-  clear() {
+  clear: function() {
     this.items = [];
     this.save();
   },
-  count() {
-    return this.items.reduce((s, i) => s + i.qty, 0);
+  count: function() {
+    return this.items.reduce(function(s, i) { return s + i.qty; }, 0);
   },
-  total() {
-    return this.items.reduce((s, i) => {
-      const p = PRODUCTS.find(p => p.handle === i.handle);
+  total: function() {
+    return this.items.reduce(function(s, i) {
+      var p = window.PRODUCTS.find(function(prod) { return prod.handle === i.handle; });
       return s + (p ? p.price * i.qty : 0);
     }, 0);
   },
-  render() {
-    document.querySelectorAll(".cart-count").forEach(el => {
-      const c = this.count();
+  render: function() {
+    var self = this;
+    document.querySelectorAll(".cart-count").forEach(function(el) {
+      var c = self.count();
       el.textContent = c;
       el.style.display = c > 0 ? "inline-flex" : "none";
     });
-    const body = document.getElementById("drawer-body");
+    var body = document.getElementById("drawer-body");
     if (!body) return;
     if (this.items.length === 0) {
       body.innerHTML = '<div class="empty"><div style="font-size:3rem">🍬</div><p style="margin-top:.5rem">Your cart is empty</p></div>';
     } else {
-      body.innerHTML = this.items.map(i => {
-        const p = PRODUCTS.find(prod => prod.handle === i.handle);
-        const title = p ? p.title : i.handle;
-        const flavorText = i.flavor ? `<span style="font-size:0.8rem; color:var(--coral); font-weight:700; display:block;">Flavor: ${i.flavor} (${i.size || p?.size})</span>` : "";
-        const price = p ? p.price * i.qty : 0;
+      body.innerHTML = this.items.map(function(i) {
+        var p = window.PRODUCTS.find(function(prod) { return prod.handle === i.handle; });
+        var title = p ? p.title : i.handle;
+        var displaySize = i.size || (p ? p.size : "");
+        var flavorText = i.flavor ? '<span style="font-size:0.8rem; color:var(--coral); font-weight:700; display:block;">Flavor: ' + i.flavor + ' (' + displaySize + ')</span>' : '';
+        var price = p ? p.price * i.qty : 0;
 
-        let itemImage = p ? p.defaultImage : '';
+        var itemImage = p ? p.defaultImage : '';
         if (p && i.flavor && p.flavors) {
-          const match = p.flavors.find(f => f.name === i.flavor);
+          var match = p.flavors.find(function(f) { return f.name === i.flavor; });
           if (match && match.image) itemImage = match.image;
         }
 
-        const imgTag = itemImage ? `<img src="${itemImage}" alt="${title}">` : `<div style="width:64px;height:64px;border-radius:.75rem;border:2px solid var(--ink);background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:1.5rem">🍬</div>`;
+        var imgTag = itemImage ? '<img src="' + itemImage + '" alt="' + title + '">' : '<div style="width:64px;height:64px;border-radius:.75rem;border:2px solid var(--ink);background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:1.5rem">🍬</div>';
 
-        return `<div class="line">
-          ${imgTag}
-          <div class="info">
-            <strong>${title}</strong>
-            ${flavorText}
-            <span class="p">$${price.toFixed(2)}</span>
-            <div class="cart-qty-wrap">
-              <button class="cart-qty-btn" type="button" onclick="cart.decrease('${i.id}')">−</button>
-              <span class="cart-qty-num">${i.qty}</span>
-              <button class="cart-qty-btn" type="button" onclick="cart.increase('${i.id}')">+</button>
-              <button class="rm" type="button" style="margin-left:auto" onclick="cart.remove('${i.id}')">Remove</button>
-            </div>
-          </div>
-        </div>`;
+        return '<div class="line">' +
+          imgTag +
+          '<div class="info">' +
+            '<strong>' + title + '</strong>' +
+            flavorText +
+            '<span class="p">$' + price.toFixed(2) + '</span>' +
+            '<div class="cart-qty-wrap">' +
+              '<button class="cart-qty-btn" type="button" onclick="cart.decrease(\'' + i.id + '\')">−</button>' +
+              '<span class="cart-qty-num">' + i.qty + '</span>' +
+              '<button class="cart-qty-btn" type="button" onclick="cart.increase(\'' + i.id + '\')">+</button>' +
+              '<button class="rm" type="button" style="margin-left:auto" onclick="cart.remove(\'' + i.id + '\')">Remove</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
       }).join("");
     }
-    const totalEl = document.getElementById("drawer-total");
+    var totalEl = document.getElementById("drawer-total");
     if (totalEl) totalEl.textContent = "$" + this.total().toFixed(2);
-  },
+  }
 };
 
-// Alias for internal cart reference
 var cart = window.cart;
 
 // 3. Dropdown Change Listener
 function handleFlavorChange(selectEl) {
-  const selectedOption = selectEl.options[selectEl.selectedIndex];
-  const newImgSrc = selectedOption.getAttribute("data-image");
-  const newSize = selectedOption.getAttribute("data-size");
-  const card = selectEl.closest(".card");
+  var selectedOption = selectEl.options[selectEl.selectedIndex];
+  var newImgSrc = selectedOption.getAttribute("data-image");
+  var newSize = selectedOption.getAttribute("data-size");
+  var card = selectEl.closest(".card");
   
   if (card) {
     if (newImgSrc) {
-      const cardImg = card.querySelector(".img img");
+      var cardImg = card.querySelector(".img img");
       if (cardImg) cardImg.src = newImgSrc;
     }
     if (newSize) {
-      const badge = card.querySelector(".badge");
+      var badge = card.querySelector(".badge");
       if (badge) badge.textContent = newSize;
     }
   }
@@ -515,14 +505,14 @@ function handleFlavorChange(selectEl) {
 
 // 4. Add to Bag
 function addProductFromCard(btnEl, handle) {
-  const card = btnEl.closest(".card");
-  let chosenFlavor = "";
-  let chosenSize = "";
+  var card = btnEl.closest(".card");
+  var chosenFlavor = "";
+  var chosenSize = "";
   if (card) {
-    const select = card.querySelector(".flavor-select");
+    var select = card.querySelector(".flavor-select");
     if (select) {
       chosenFlavor = select.value;
-      const selectedOption = select.options[select.selectedIndex];
+      var selectedOption = select.options[select.selectedIndex];
       chosenSize = selectedOption.getAttribute("data-size") || "";
     }
   }
@@ -532,7 +522,7 @@ function addProductFromCard(btnEl, handle) {
 // 5. Filter Category
 function filterCategory(categoryName) {
   window.currentCategory = categoryName;
-  document.querySelectorAll(".category-pill").forEach(pill => {
+  document.querySelectorAll(".category-pill").forEach(function(pill) {
     if (pill.getAttribute("data-category") === categoryName) {
       pill.classList.add("active");
     } else {
@@ -544,128 +534,151 @@ function filterCategory(categoryName) {
 
 // 6. Unified Renderer
 function renderAllGrids() {
-  const featuredEl = document.getElementById("product-grid");
-  const shopEl = document.getElementById("shop-product-grid");
-  const bgs = ["bg-1", "bg-2", "bg-3", "bg-4"];
+  var featuredEl = document.getElementById("product-grid");
+  var shopEl = document.getElementById("shop-product-grid");
+  var bgs = ["bg-1", "bg-2", "bg-3", "bg-4"];
 
-  const buildCardHTML = (p, idx, gridPrefix = "grid") => {
-    const hasFlavors = p.flavors && p.flavors.length > 0;
-    const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
-    const initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
+  function buildCardHTML(p, idx, gridPrefix) {
+    gridPrefix = gridPrefix || "grid";
+    var hasFlavors = p.flavors && p.flavors.length > 0;
+    var initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+    var initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
 
-    const dropdownHTML = hasFlavors ? `
-      <div class="flavor-select-container">
-        <label class="flavor-label" for="flavor-${gridPrefix}-${p.handle}-${idx}">Flavor:</label>
-        <select id="flavor-${gridPrefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image \vert{}\vert{} ''}">${f.name}</option>`).join("")}
-        </select>
-      </div>
-    ` : '';
+    var dropdownHTML = "";
+    if (hasFlavors) {
+      var options = p.flavors.map(function(f) {
+        var optSize = f.size || p.size;
+        var optImg = f.image || "";
+        return '<option value="' + f.name + '" data-size="' + optSize + '" data-image="' + optImg + '">' + f.name + '</option>';
+      }).join("");
 
-    const imageElement = initialImg 
-      ? `<img src="${initialImg}" alt="${p.title}">` 
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--pink);">🍬</div>`;
+      dropdownHTML = '<div class="flavor-select-container">' +
+        '<label class="flavor-label" for="flavor-' + gridPrefix + '-' + p.handle + '-' + idx + '">Flavor:</label>' +
+        '<select id="flavor-' + gridPrefix + '-' + p.handle + '-' + idx + '" class="flavor-select" onchange="handleFlavorChange(this)">' +
+          options +
+        '</select>' +
+      '</div>';
+    }
 
-    return `
-      <div class="card">
-        <div class="img ${bgs[idx % bgs.length]}">
-          <span class="badge">${initialSize}</span>
-          <a href="product.html?item=${p.handle}" style="display:block; width:100%; height:100%;">
-            ${imageElement}
-          </a>
-        </div>
-        <div class="body">
-          <a href="product.html?item=${p.handle}">
-            <h3 style="cursor:pointer">${p.title}</h3>
-          </a>
-          <p class="desc">${p.description}</p>
-          ${dropdownHTML}
-          <div class="row">
-            <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn-dark" type="button" onclick="addProductFromCard(this, '${p.handle}')">+ Add</button>
-          </div>
-        </div>
-      </div>
-    `;
-  };
+    var imageElement = initialImg 
+      ? '<img src="' + initialImg + '" alt="' + p.title + '">' 
+      : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--pink);">🍬</div>';
+
+    return '<div class="card">' +
+      '<div class="img ' + bgs[idx % bgs.length] + '">' +
+        '<span class="badge">' + initialSize + '</span>' +
+        '<a href="product.html?item=' + p.handle + '" style="display:block; width:100%; height:100%;">' +
+          imageElement +
+        '</a>' +
+      '</div>' +
+      '<div class="body">' +
+        '<a href="product.html?item=' + p.handle + '">' +
+          '<h3 style="cursor:pointer">' + p.title + '</h3>' +
+        '</a>' +
+        '<p class="desc">' + p.description + '</p>' +
+        dropdownHTML +
+        '<div class="row">' +
+          '<span class="price">$' + p.price.toFixed(2) + '</span>' +
+          '<button class="btn btn-dark" type="button" onclick="addProductFromCard(this, \'' + p.handle + '\')">+ Add</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
 
   if (featuredEl) {
-    featuredEl.innerHTML = PRODUCTS.slice(0, 3).map((p, i) => buildCardHTML(p, i, "home")).join("");
+    featuredEl.innerHTML = window.PRODUCTS.slice(0, 3).map(function(p, i) {
+      return buildCardHTML(p, i, "home");
+    }).join("");
   }
 
   if (shopEl) {
-    let list = PRODUCTS;
+    var list = window.PRODUCTS;
     if (window.currentCategory && window.currentCategory !== "All") {
-      list = PRODUCTS.filter(p => p.category === window.currentCategory);
+      list = window.PRODUCTS.filter(function(p) { return p.category === window.currentCategory; });
     }
-    shopEl.innerHTML = list.map((p, i) => buildCardHTML(p, i, "shop")).join("");
+    shopEl.innerHTML = list.map(function(p, i) {
+      return buildCardHTML(p, i, "shop");
+    }).join("");
   }
 }
 
 // 7. Dynamic Product Detail Page Loader
 function adjustPdpQty(delta) {
-  const qtyEl = document.getElementById("pdp-qty");
+  var qtyEl = document.getElementById("pdp-qty");
   if (!qtyEl) return;
-  let current = parseInt(qtyEl.textContent) || 1;
+  var current = parseInt(qtyEl.textContent, 10) || 1;
   current = Math.max(1, current + delta);
   qtyEl.textContent = current;
 }
 
 function loadProductDetailPage() {
-  const container = document.getElementById("pdp-container");
+  var container = document.getElementById("pdp-container");
   if (!container) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const handle = params.get("item");
-  const p = PRODUCTS.find(prod => prod.handle === handle) || PRODUCTS[0];
+  var params = new URLSearchParams(window.location.search);
+  var handle = params.get("item");
+  var p = window.PRODUCTS.find(function(prod) { return prod.handle === handle; }) || window.PRODUCTS[0];
 
   if (!p) return;
 
-  document.title = `${p.title} - Kreeze Candies`;
-  const metaTitle = document.getElementById("pdp-meta-title");
-  if (metaTitle) metaTitle.textContent = `${p.title} - Kreeze Candies`;
+  document.title = p.title + " - Kreeze Candies";
+  var metaTitle = document.getElementById("pdp-meta-title");
+  if (metaTitle) metaTitle.textContent = p.title + " - Kreeze Candies";
 
-  document.getElementById("pdp-title").textContent = p.title;
-  document.getElementById("pdp-price").textContent = `$${p.price.toFixed(2)}`;
-  document.getElementById("pdp-desc").textContent = p.description;
+  var titleEl = document.getElementById("pdp-title");
+  var priceEl = document.getElementById("pdp-price");
+  var descEl = document.getElementById("pdp-desc");
+  var sizeEl = document.getElementById("pdp-size");
 
-  const hasFlavors = p.flavors && p.flavors.length > 0;
-  const initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
-  const initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
+  if (titleEl) titleEl.textContent = p.title;
+  if (priceEl) priceEl.textContent = "$" + p.price.toFixed(2);
+  if (descEl) descEl.textContent = p.description;
 
-  const imgContainer = document.getElementById("pdp-img-container");
-  if (initialImg) {
-    imgContainer.innerHTML = `<img id="pdp-image" src="${initialImg}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover;">`;
-  } else {
-    imgContainer.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--pink);">🍬</div>`;
+  var hasFlavors = p.flavors && p.flavors.length > 0;
+  var initialImg = (hasFlavors && p.flavors[0].image) ? p.flavors[0].image : p.defaultImage;
+  var initialSize = (hasFlavors && p.flavors[0].size) ? p.flavors[0].size : p.size;
+
+  var imgContainer = document.getElementById("pdp-img-container");
+  if (imgContainer) {
+    if (initialImg) {
+      imgContainer.innerHTML = '<img id="pdp-image" src="' + initialImg + '" alt="' + p.title + '" style="width:100%; height:100%; object-fit:cover;">';
+    } else {
+      imgContainer.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--pink);">🍬</div>';
+    }
   }
 
-  document.getElementById("pdp-size").textContent = initialSize;
+  if (sizeEl) sizeEl.textContent = initialSize;
 
-  const flavorArea = document.getElementById("pdp-flavor-area");
-  if (hasFlavors) {
-    flavorArea.innerHTML = `
-      <div class="flavor-select-container">
-        <label class="flavor-label" for="pdp-flavor-select">Flavor:</label>
-        <select id="pdp-flavor-select" class="flavor-select" onchange="handlePdpFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size \vert{}\vert{} p.size}" data-image="${f.image || ''}">${f.name} (${f.size || p.size})</option>`).join("")}
-        </select>
-      </div>
-    `;
-  } else {
-    flavorArea.innerHTML = "";
+  var flavorArea = document.getElementById("pdp-flavor-area");
+  if (flavorArea) {
+    if (hasFlavors) {
+      var options = p.flavors.map(function(f) {
+        var optSize = f.size || p.size;
+        var optImg = f.image || "";
+        return '<option value="' + f.name + '" data-size="' + optSize + '" data-image="' + optImg + '">' + f.name + ' (' + optSize + ')</option>';
+      }).join("");
+
+      flavorArea.innerHTML = '<div class="flavor-select-container">' +
+        '<label class="flavor-label" for="pdp-flavor-select">Flavor:</label>' +
+        '<select id="pdp-flavor-select" class="flavor-select" onchange="handlePdpFlavorChange(this)">' +
+          options +
+        '</select>' +
+      '</div>';
+    } else {
+      flavorArea.innerHTML = "";
+    }
   }
 
-  const addBtn = document.getElementById("pdp-add-btn");
+  var addBtn = document.getElementById("pdp-add-btn");
   if (addBtn) {
     addBtn.onclick = function() {
-      const qty = parseInt(document.getElementById("pdp-qty").textContent) || 1;
-      let chosenFlavor = "";
-      let chosenSize = p.size;
-      const select = document.getElementById("pdp-flavor-select");
+      var qty = parseInt(document.getElementById("pdp-qty").textContent, 10) || 1;
+      var chosenFlavor = "";
+      var chosenSize = p.size;
+      var select = document.getElementById("pdp-flavor-select");
       if (select) {
         chosenFlavor = select.value;
-        const opt = select.options[select.selectedIndex];
+        var opt = select.options[select.selectedIndex];
         chosenSize = opt.getAttribute("data-size") || p.size;
       }
       cart.add(p.handle, qty, chosenFlavor, chosenSize);
@@ -674,30 +687,38 @@ function loadProductDetailPage() {
 }
 
 function handlePdpFlavorChange(selectEl) {
-  const selectedOption = selectEl.options[selectEl.selectedIndex];
-  const newImgSrc = selectedOption.getAttribute("data-image");
-  const newSize = selectedOption.getAttribute("data-size");
+  var selectedOption = selectEl.options[selectEl.selectedIndex];
+  var newImgSrc = selectedOption.getAttribute("data-image");
+  var newSize = selectedOption.getAttribute("data-size");
   
-  const imgEl = document.getElementById("pdp-image");
+  var imgEl = document.getElementById("pdp-image");
   if (imgEl && newImgSrc) {
     imgEl.src = newImgSrc;
   }
   if (newSize) {
-    document.getElementById("pdp-size").textContent = newSize;
+    var sizeEl = document.getElementById("pdp-size");
+    if (sizeEl) sizeEl.textContent = newSize;
   }
 }
 
 // 8. Drawer & Modal Controls
 function openDrawer() {
-  document.getElementById("drawer")?.classList.add("open");
-  document.getElementById("drawer-scrim")?.classList.add("open");
+  var drawer = document.getElementById("drawer");
+  var scrim = document.getElementById("drawer-scrim");
+  if (drawer) drawer.classList.add("open");
+  if (scrim) scrim.classList.add("open");
 }
+
 function closeDrawer() {
-  document.getElementById("drawer")?.classList.remove("open");
-  document.getElementById("drawer-scrim")?.classList.remove("open");
+  var drawer = document.getElementById("drawer");
+  var scrim = document.getElementById("drawer-scrim");
+  if (drawer) drawer.classList.remove("open");
+  if (scrim) scrim.classList.remove("open");
 }
+
 function toggleMobileNav() {
-  document.getElementById("mobile-nav")?.classList.toggle("open");
+  var nav = document.getElementById("mobile-nav");
+  if (nav) nav.classList.toggle("open");
 }
 
 function checkout() {
@@ -707,11 +728,12 @@ function checkout() {
   // Record time opened for human speed-trap check
   window.checkoutOpenedAt = Date.now();
 
-  const title = document.getElementById("checkout-title");
-  const form = document.getElementById("checkout-form");
-  const screen = document.getElementById("confirmation-screen");
-  const shippingOption = document.getElementById("delivery-shipping");
-  const shippingNotice = document.getElementById("pickup-only-notice");
+  var title = document.getElementById("checkout-title");
+  var form = document.getElementById("checkout-form");
+  var screen = document.getElementById("confirmation-screen");
+  var shippingOption = document.getElementById("delivery-shipping");
+  var shippingNotice = document.getElementById("pickup-only-notice");
+  var pickupOption = document.getElementById("delivery-pickup");
 
   if (title) title.innerText = "Complete Your Order";
   if (form) form.style.display = "block";
@@ -719,7 +741,7 @@ function checkout() {
 
   if (cart.hasPickupOnlyItems()) {
     if (shippingOption) shippingOption.disabled = true;
-    document.getElementById("delivery-pickup").checked = true;
+    if (pickupOption) pickupOption.checked = true;
     if (shippingNotice) shippingNotice.style.display = "block";
     toggleShippingAddressFields(false);
   } else {
@@ -731,17 +753,19 @@ function checkout() {
 
   updateCheckoutTotals();
 
-  document.getElementById("checkout-modal")?.classList.add("open");
-  document.getElementById("checkout-scrim")?.classList.add("open");
+  var modal = document.getElementById("checkout-modal");
+  var scrim = document.getElementById("checkout-scrim");
+  if (modal) modal.classList.add("open");
+  if (scrim) scrim.classList.add("open");
 }
 
 function toggleShippingAddressFields(isShipping) {
-  const addrFields = document.getElementById("shipping-address-fields");
-  const shipAddress = document.getElementById('ship-address');
-  const shipCity = document.getElementById('ship-city');
-  const shipState = document.getElementById('ship-state');
-  const shipZip = document.getElementById('ship-zip');
-  const shippingRow = document.getElementById('checkout-shipping-row');
+  var addrFields = document.getElementById("shipping-address-fields");
+  var shipAddress = document.getElementById('ship-address');
+  var shipCity = document.getElementById('ship-city');
+  var shipState = document.getElementById('ship-state');
+  var shipZip = document.getElementById('ship-zip');
+  var shippingRow = document.getElementById('checkout-shipping-row');
 
   if (addrFields) {
     addrFields.style.display = isShipping ? "block" : "none";
@@ -757,33 +781,37 @@ function toggleShippingAddressFields(isShipping) {
 }
 
 function updateCheckoutTotals() {
-  const isShipping = document.getElementById("delivery-shipping")?.checked;
-  const subtotal = cart.total();
-  const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + salesTax;
+  var shipOption = document.getElementById("delivery-shipping");
+  var isShipping = shipOption ? shipOption.checked : true;
+  var subtotal = cart.total();
+  var shippingFee = isShipping ? cart.getShippingFee() : 0;
+  var salesTax = getCalculatedTax(subtotal);
+  var grandTotal = subtotal + shippingFee + salesTax;
 
-  const subtotalDisplay = document.getElementById("checkout-subtotal");
-  const feeDisplay = document.getElementById("checkout-shipping-fee");
-  const taxDisplay = document.getElementById("checkout-tax-fee");
-  const totalDisplay = document.getElementById("checkout-grand-total");
+  var subtotalDisplay = document.getElementById("checkout-subtotal");
+  var feeDisplay = document.getElementById("checkout-shipping-fee");
+  var taxDisplay = document.getElementById("checkout-tax-fee");
+  var totalDisplay = document.getElementById("checkout-grand-total");
 
-  if (subtotalDisplay) subtotalDisplay.innerText = `$${subtotal.toFixed(2)}`;
-  if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
-  if (taxDisplay) taxDisplay.innerText = `$${salesTax.toFixed(2)}`;
-  if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
+  if (subtotalDisplay) subtotalDisplay.innerText = "$" + subtotal.toFixed(2);
+  if (feeDisplay) feeDisplay.innerText = isShipping ? "$" + shippingFee.toFixed(2) : "$0.00";
+  if (taxDisplay) taxDisplay.innerText = "$" + salesTax.toFixed(2);
+  if (totalDisplay) totalDisplay.innerText = "$" + grandTotal.toFixed(2);
 }
 
 function closeCheckoutModal() {
-  document.getElementById("checkout-modal")?.classList.remove("open");
-  document.getElementById("checkout-scrim")?.classList.remove("open");
+  var modal = document.getElementById("checkout-modal");
+  var scrim = document.getElementById("checkout-scrim");
+  if (modal) modal.classList.remove("open");
+  if (scrim) scrim.classList.remove("open");
 }
 
 function processOrder(event) {
   event.preventDefault();
 
   // Guard 1: Honeypot trap (Invisible field that bots auto-fill)
-  const honeypotVal = document.getElementById("website-hp")?.value || "";
+  var hpEl = document.getElementById("website-hp");
+  var honeypotVal = hpEl ? hpEl.value : "";
   if (honeypotVal.trim() !== "") {
     console.warn("Spam bot trapped by honeypot.");
     return;
@@ -801,86 +829,94 @@ function processOrder(event) {
     return;
   }
 
-  const phoneInput = document.getElementById("cust-phone")?.value || "";
-  const cleanPhone = phoneInput.replace(/\D/g, '');
-  const formattedPhone = `(${cleanPhone.slice(0,3)}) ${cleanPhone.slice(3,6)}-${cleanPhone.slice(6)}`;
+  var phoneEl = document.getElementById("cust-phone");
+  var phoneInput = phoneEl ? phoneEl.value : "";
+  var cleanPhone = phoneInput.replace(/\D/g, '');
+  var formattedPhone = "(" + cleanPhone.slice(0,3) + ") " + cleanPhone.slice(3,6) + "-" + cleanPhone.slice(6);
 
   if (cleanPhone.length !== 10) {
     alert("Please enter a valid 10-digit phone number!");
     return;
   }
 
-  const isShipping = document.getElementById("delivery-shipping")?.checked;
+  var shipOption = document.getElementById("delivery-shipping");
+  var isShipping = shipOption ? shipOption.checked : false;
   if (isShipping && cart.hasPickupOnlyItems()) {
     alert("Your cart contains items that are only available for local pickup. Please select Candy Shack Pickup.");
     return;
   }
 
-  const submitBtn = document.getElementById("submit-order-btn");
+  var submitBtn = document.getElementById("submit-order-btn");
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.innerText = "Submitting Order...";
   }
 
-  const orderNum = Math.floor(1000 + Math.random() * 9000);
-  const orderId = `KC-${orderNum}`;
-  const name = document.getElementById("cust-name")?.value || "Customer";
-  const email = document.getElementById("cust-email")?.value || "N/A";
-  const deliveryType = isShipping ? "Direct Shipping" : "Candy Shack Pickup";
+  var orderNum = Math.floor(1000 + Math.random() * 9000);
+  var orderId = "KC-" + orderNum;
+  var nameEl = document.getElementById("cust-name");
+  var emailEl = document.getElementById("cust-email");
+  var name = nameEl ? nameEl.value : "Customer";
+  var email = emailEl ? emailEl.value : "N/A";
+  var deliveryType = isShipping ? "Direct Shipping" : "Candy Shack Pickup";
   
-  let shippingAddressStr = "N/A (Local Pickup)";
+  var shippingAddressStr = "N/A (Local Pickup)";
   if (isShipping) {
-    const street = document.getElementById("ship-address")?.value || "";
-    const city = document.getElementById("ship-city")?.value || "";
-    const state = document.getElementById("ship-state")?.value || "";
-    const zip = document.getElementById("ship-zip")?.value || "";
-    shippingAddressStr = `${street}, ${city}, ${state} ${zip}`;
+    var addrEl = document.getElementById("ship-address");
+    var cityEl = document.getElementById("ship-city");
+    var stateEl = document.getElementById("ship-state");
+    var zipEl = document.getElementById("ship-zip");
+    var street = addrEl ? addrEl.value : "";
+    var city = cityEl ? cityEl.value : "";
+    var state = stateEl ? stateEl.value : "";
+    var zip = zipEl ? zipEl.value : "";
+    shippingAddressStr = street + ", " + city + ", " + state + " " + zip;
   }
 
-  const subtotal = cart.total();
-  const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + salesTax;
-  const totalFormatted = "$" + grandTotal.toFixed(2);
-  const numericAmount = grandTotal.toFixed(2);
+  var subtotal = cart.total();
+  var shippingFee = isShipping ? cart.getShippingFee() : 0;
+  var salesTax = getCalculatedTax(subtotal);
+  var grandTotal = subtotal + shippingFee + salesTax;
+  var totalFormatted = "$" + grandTotal.toFixed(2);
+  var numericAmount = grandTotal.toFixed(2);
 
-  const selectedMethod = document.getElementById("payment-method")?.value || "venmo";
+  var methodEl = document.getElementById("payment-method");
+  var selectedMethod = methodEl ? methodEl.value : "venmo";
   
-  const itemsList = cart.items.map(item => {
-    const p = PRODUCTS.find(prod => prod.handle === item.handle) || {};
-    const title = p.title || item.handle;
-    const flavorTag = item.flavor ? ` (${item.flavor})` : "";
-    const sizeTag = item.size ? ` [${item.size}]` : "";
-    const price = p.price || 6.00;
-    return `- ${title}${flavorTag}${sizeTag} (x${item.qty}) — $${(price * item.qty).toFixed(2)}`;
+  var itemsList = cart.items.map(function(item) {
+    var p = window.PRODUCTS.find(function(prod) { return prod.handle === item.handle; }) || {};
+    var title = p.title || item.handle;
+    var flavorTag = item.flavor ? " (" + item.flavor + ")" : "";
+    var sizeTag = item.size ? " [" + item.size + "]" : "";
+    var price = p.price || 6.00;
+    return "- " + title + flavorTag + sizeTag + " (x" + item.qty + ") — $" + (price * item.qty).toFixed(2);
   }).join("\n");
 
-  let appName = "";
-  let handle = "";
-  let payUrl = "";
+  var appName = "";
+  var handle = "";
+  var payUrl = "";
 
   switch (selectedMethod) {
     case "cashapp":
       appName = "Cash App";
       handle = "$CarrieBunk";
-      payUrl = `https://cash.app/$CarrieBunk/${numericAmount}`;
+      payUrl = "https://cash.app/$CarrieBunk/" + numericAmount;
       break;
     case "paypal":
       appName = "PayPal";
       handle = "paypal.me/krecandy";
-      payUrl = `https://paypal.me/krecandy/${numericAmount}`;
+      payUrl = "https://paypal.me/krecandy/" + numericAmount;
       break;
     case "venmo":
     default:
       appName = "Venmo";
       handle = "@Carrie-Bunk";
-      payUrl = `https://venmo.com/Carrie-Bunk?txn=pay&note=Order%20%23${orderId}&amount=${numericAmount}`;
+      payUrl = "https://venmo.com/Carrie-Bunk?txn=pay&note=Order%20%23" + orderId + "&amount=" + numericAmount;
       break;
   }
 
-  // Generate current timestamp in US Eastern Time
-  const now = new Date();
-  const orderTimestamp = now.toLocaleString("en-US", {
+  var now = new Date();
+  var orderTimestamp = now.toLocaleString("en-US", {
     timeZone: "America/New_York",
     year: "numeric",
     month: "2-digit",
@@ -890,7 +926,7 @@ function processOrder(event) {
     hour12: true
   });
 
-  const templateParams = {
+  var templateParams = {
     order_id: orderId,
     order_date: orderTimestamp,
     customer_name: name,
@@ -898,14 +934,14 @@ function processOrder(event) {
     customer_phone: formattedPhone,
     delivery_method: deliveryType,
     shipping_address: shippingAddressStr,
-    shipping_fee: `$${shippingFee.toFixed(2)}`,
-    sales_tax: `$${salesTax.toFixed(2)}`,
+    shipping_fee: "$" + shippingFee.toFixed(2),
+    sales_tax: "$" + salesTax.toFixed(2),
     payment_method: appName,
     order_total: totalFormatted,
     order_items: itemsList
   };
 
-  // 1. Dispatch EmailJS notification[cite: 14]
+  // 1. Dispatch EmailJS notification
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
       .then(function(response) {
@@ -916,8 +952,8 @@ function processOrder(event) {
       });
   }
 
-  // 2. Auto-log order into Google Sheet[cite: 14]
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxROUil2fSrbRJQiPikhD2rvRSXMorTdJxydJdE9wT9hyBpNtq2isFJRRvXHWNb0Zs9xA/exec";
+  // 2. Auto-log order into Google Sheet
+  var GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxROUil2fSrbRJQiPikhD2rvRSXMorTdJxydJdE9wT9hyBpNtq2isFJRRvXHWNb0Zs9xA/exec";
 
   if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.indexOf("PASTE_") === -1) {
     fetch(GOOGLE_SHEET_URL, {
@@ -930,23 +966,30 @@ function processOrder(event) {
     });
   }
 
-  // 3. Populate confirmation screen[cite: 14]
-  if (document.getElementById("conf-order-id")) document.getElementById("conf-order-id").innerText = `#${orderId}`;
-  if (document.getElementById("conf-total")) document.getElementById("conf-total").innerText = totalFormatted;
-  if (document.getElementById("conf-app-name")) document.getElementById("conf-app-name").innerText = appName;
-  if (document.getElementById("conf-handle")) document.getElementById("conf-handle").innerText = handle;
-  if (document.getElementById("conf-amount")) document.getElementById("conf-amount").innerText = totalFormatted;
-  if (document.getElementById("conf-pay-id")) document.getElementById("conf-pay-id").innerText = `#${orderId}`;
+  // 3. Populate confirmation screen
+  var confOrderId = document.getElementById("conf-order-id");
+  var confTotal = document.getElementById("conf-total");
+  var confAppName = document.getElementById("conf-app-name");
+  var confHandle = document.getElementById("conf-handle");
+  var confAmount = document.getElementById("conf-amount");
+  var confPayId = document.getElementById("conf-pay-id");
 
-  const payBtn = document.getElementById("pay-direct-link");
+  if (confOrderId) confOrderId.innerText = "#" + orderId;
+  if (confTotal) confTotal.innerText = totalFormatted;
+  if (confAppName) confAppName.innerText = appName;
+  if (confHandle) confHandle.innerText = handle;
+  if (confAmount) confAmount.innerText = totalFormatted;
+  if (confPayId) confPayId.innerText = "#" + orderId;
+
+  var payBtn = document.getElementById("pay-direct-link");
   if (payBtn) {
-    payBtn.innerText = `Pay $${numericAmount} on ${appName}`;
+    payBtn.innerText = "Pay $" + numericAmount + " on " + appName;
     payBtn.href = payUrl;
   }
 
-  const checkoutTitle = document.getElementById("checkout-title");
-  const checkoutForm = document.getElementById("checkout-form");
-  const confScreen = document.getElementById("confirmation-screen");
+  var checkoutTitle = document.getElementById("checkout-title");
+  var checkoutForm = document.getElementById("checkout-form");
+  var confScreen = document.getElementById("confirmation-screen");
 
   if (checkoutTitle) checkoutTitle.innerText = "Order Submitted!";
   if (checkoutForm) checkoutForm.style.display = "none";
@@ -961,8 +1004,8 @@ function processOrder(event) {
 }
 
 // 9. Initialize
-document.addEventListener("DOMContentLoaded", () => {
-  cart.render();
+document.addEventListener("DOMContentLoaded", function() {
+  window.cart.render();
   renderAllGrids();
   loadProductDetailPage();
 });
