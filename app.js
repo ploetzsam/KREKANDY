@@ -1,13 +1,27 @@
 // ==========================================
-// 💡 CONFIGURATION: SALES TAX
+// 💡 CONFIGURATION: SALES TAX & INSURANCE
 // ==========================================
 // NY standard rate (Machias / Cattaraugus County = 8.00% or 0.08)
 window.SALES_TAX_RATE = 0.08;
+
+// Shipping Protection: $1.50 flat base or 2.5% overage, rounded to nearest nickel ($0.05)
+window.INSURANCE_BASE = 1.50;
+window.INSURANCE_RATE = 0.025;
 
 function getCalculatedTax(subtotal) {
   const rate = typeof window.SALES_TAX_RATE === "number" ? window.SALES_TAX_RATE : 0.08;
   return Math.round(subtotal * rate * 100) / 100;
 }
+
+function getCalculatedInsuranceFee(subtotal) {
+  const base = typeof window.INSURANCE_BASE === "number" ? window.INSURANCE_BASE : 1.50;
+  const rate = typeof window.INSURANCE_RATE === "number" ? window.INSURANCE_RATE : 0.025;
+  const calculatedPercentFee = Math.round(subtotal * rate * 20) / 20;
+  return Math.max(base, calculatedPercentFee);
+}
+
+// Track modal open time to catch instant bot submissions
+window.checkoutOpenedAt = 0;
 
 // EmailJS Initialization for GitHub Pages
 if (typeof emailjs !== "undefined") {
@@ -537,7 +551,7 @@ function renderAllGrids() {
       <div class="flavor-select-container">
         <label class="flavor-label" for="flavor-${gridPrefix}-${p.handle}-${idx}">Flavor:</label>
         <select id="flavor-${gridPrefix}-${p.handle}-${idx}" class="flavor-select" onchange="handleFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image || ''}">${f.name}</option>`).join("")}
+          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image \vert{}\vert{} ''}">${f.name}</option>`).join("")}
         </select>
       </div>
     ` : '';
@@ -628,7 +642,7 @@ function loadProductDetailPage() {
       <div class="flavor-select-container">
         <label class="flavor-label" for="pdp-flavor-select">Flavor:</label>
         <select id="pdp-flavor-select" class="flavor-select" onchange="handlePdpFlavorChange(this)">
-          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size || p.size}" data-image="${f.image || ''}">${f.name} (${f.size || p.size})</option>`).join("")}
+          ${p.flavors.map(f => `<option value="${f.name}" data-size="${f.size \vert{}\vert{} p.size}" data-image="${f.image || ''}">${f.name} (${f.size || p.size})</option>`).join("")}
         </select>
       </div>
     `;
@@ -679,10 +693,14 @@ function closeDrawer() {
 function toggleMobileNav() {
   document.getElementById("mobile-nav")?.classList.toggle("open");
 }
+
 function checkout() {
   if (cart.items.length === 0) return;
   closeDrawer();
   
+  // Record time opened for human speed-trap check
+  window.checkoutOpenedAt = Date.now();
+
   const title = document.getElementById("checkout-title");
   const form = document.getElementById("checkout-form");
   const screen = document.getElementById("confirmation-screen");
@@ -718,6 +736,8 @@ function toggleShippingAddressFields(isShipping) {
   const shipState = document.getElementById('ship-state');
   const shipZip = document.getElementById('ship-zip');
   const shippingRow = document.getElementById('checkout-shipping-row');
+  const insuranceField = document.getElementById('insurance-field');
+  const insuranceRow = document.getElementById('checkout-insurance-row');
 
   if (addrFields) {
     addrFields.style.display = isShipping ? "block" : "none";
@@ -728,6 +748,8 @@ function toggleShippingAddressFields(isShipping) {
   if (shipZip) shipZip.required = isShipping;
 
   if (shippingRow) shippingRow.style.display = isShipping ? "flex" : "none";
+  if (insuranceField) insuranceField.style.display = isShipping ? "block" : "none";
+  if (insuranceRow) insuranceRow.style.display = isShipping ? "flex" : "none";
 
   updateCheckoutTotals();
 }
@@ -736,16 +758,26 @@ function updateCheckoutTotals() {
   const isShipping = document.getElementById("delivery-shipping")?.checked;
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
+  
+  // Dynamic insurance: $1.50 base or 2.5% overage rounded to nearest $0.05
+  const calculatedIns = getCalculatedInsuranceFee(subtotal);
+  const wantsInsurance = isShipping && document.getElementById("shipping-insurance")?.checked;
+  const insuranceFee = wantsInsurance ? calculatedIns : 0;
+  
   const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + salesTax;
+  const grandTotal = subtotal + shippingFee + insuranceFee + salesTax;
 
   const subtotalDisplay = document.getElementById("checkout-subtotal");
   const feeDisplay = document.getElementById("checkout-shipping-fee");
+  const insDisplay = document.getElementById("checkout-insurance-fee");
+  const insLabelAmount = document.getElementById("insurance-label-amount");
   const taxDisplay = document.getElementById("checkout-tax-fee");
   const totalDisplay = document.getElementById("checkout-grand-total");
 
   if (subtotalDisplay) subtotalDisplay.innerText = `$${subtotal.toFixed(2)}`;
   if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
+  if (insDisplay) insDisplay.innerText = wantsInsurance ? `$${insuranceFee.toFixed(2)}` : "$0.00";
+  if (insLabelAmount) insLabelAmount.innerText = `+$${calculatedIns.toFixed(2)}`;
   if (taxDisplay) taxDisplay.innerText = `$${salesTax.toFixed(2)}`;
   if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
 }
@@ -757,6 +789,25 @@ function closeCheckoutModal() {
 
 function processOrder(event) {
   event.preventDefault();
+
+  // Guard 1: Honeypot trap (Invisible field that bots auto-fill)
+  const honeypotVal = document.getElementById("website-hp")?.value || "";
+  if (honeypotVal.trim() !== "") {
+    console.warn("Spam bot trapped by honeypot.");
+    return; // Silently discard
+  }
+
+  // Guard 2: Reject empty carts / zero totals
+  if (!cart.items || cart.items.length === 0 || cart.total() <= 0) {
+    alert("Your cart is empty! Please add items before checking out.");
+    return;
+  }
+
+  // Guard 3: Submission Speed-Trap (Bots submit in < 2.5 seconds)
+  if (window.checkoutOpenedAt && (Date.now() - window.checkoutOpenedAt) < 2500) {
+    console.warn("Submission too fast. Bot detected.");
+    return; // Silently drop sub-second submissions
+  }
 
   const phoneInput = document.getElementById("cust-phone")?.value || "";
   const cleanPhone = phoneInput.replace(/\D/g, '');
@@ -783,7 +834,6 @@ function processOrder(event) {
   const orderId = `KC-${orderNum}`;
   const name = document.getElementById("cust-name")?.value || "Customer";
   const email = document.getElementById("cust-email")?.value || "N/A";
-  const phone = document.getElementById("cust-phone")?.value || "N/A";
   const deliveryType = isShipping ? "Direct Shipping" : "Candy Shack Pickup";
   
   let shippingAddressStr = "N/A (Local Pickup)";
@@ -797,8 +847,13 @@ function processOrder(event) {
 
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
+  
+  const calculatedIns = getCalculatedInsuranceFee(subtotal);
+  const wantsInsurance = isShipping && document.getElementById("shipping-insurance")?.checked;
+  const insuranceFee = wantsInsurance ? calculatedIns : 0;
+  
   const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + salesTax;
+  const grandTotal = subtotal + shippingFee + insuranceFee + salesTax;
   const totalFormatted = "$" + grandTotal.toFixed(2);
   const numericAmount = grandTotal.toFixed(2);
 
@@ -854,9 +909,10 @@ function processOrder(event) {
     customer_name: name,
     customer_email: email,
     customer_phone: formattedPhone,
-    delivery_method: deliveryType,
+    delivery_method: `${deliveryType}${wantsInsurance ? ` + Shipping Protection ($${calculatedIns.toFixed(2)})` : ""}`,
     shipping_address: shippingAddressStr,
     shipping_fee: `$${shippingFee.toFixed(2)}`,
+    shipping_insurance: wantsInsurance ? `$${calculatedIns.toFixed(2)} (Yes)` : "$0.00 (No)",
     sales_tax: `$${salesTax.toFixed(2)}`,
     payment_method: appName,
     order_total: totalFormatted,
