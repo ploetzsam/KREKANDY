@@ -1,23 +1,12 @@
 // ==========================================
-// 💡 CONFIGURATION: SALES TAX & INSURANCE
+// 💡 CONFIGURATION: SALES TAX
 // ==========================================
 // NY standard rate (Machias / Cattaraugus County = 8.00% or 0.08)
 window.SALES_TAX_RATE = 0.08;
 
-// Shipping Protection: $1.50 flat base or 2.5% overage, rounded to nearest nickel ($0.05)
-window.INSURANCE_BASE = 1.50;
-window.INSURANCE_RATE = 0.025;
-
 function getCalculatedTax(subtotal) {
   const rate = typeof window.SALES_TAX_RATE === "number" ? window.SALES_TAX_RATE : 0.08;
   return Math.round(subtotal * rate * 100) / 100;
-}
-
-function getCalculatedInsuranceFee(subtotal) {
-  const base = typeof window.INSURANCE_BASE === "number" ? window.INSURANCE_BASE : 1.50;
-  const rate = typeof window.INSURANCE_RATE === "number" ? window.INSURANCE_RATE : 0.025;
-  const calculatedPercentFee = Math.round(subtotal * rate * 20) / 20;
-  return Math.max(base, calculatedPercentFee);
 }
 
 // Track modal open time to catch instant bot submissions
@@ -736,8 +725,6 @@ function toggleShippingAddressFields(isShipping) {
   const shipState = document.getElementById('ship-state');
   const shipZip = document.getElementById('ship-zip');
   const shippingRow = document.getElementById('checkout-shipping-row');
-  const insuranceField = document.getElementById('insurance-field');
-  const insuranceRow = document.getElementById('checkout-insurance-row');
 
   if (addrFields) {
     addrFields.style.display = isShipping ? "block" : "none";
@@ -748,8 +735,6 @@ function toggleShippingAddressFields(isShipping) {
   if (shipZip) shipZip.required = isShipping;
 
   if (shippingRow) shippingRow.style.display = isShipping ? "flex" : "none";
-  if (insuranceField) insuranceField.style.display = isShipping ? "block" : "none";
-  if (insuranceRow) insuranceRow.style.display = isShipping ? "flex" : "none";
 
   updateCheckoutTotals();
 }
@@ -758,26 +743,16 @@ function updateCheckoutTotals() {
   const isShipping = document.getElementById("delivery-shipping")?.checked;
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  
-  // Dynamic insurance: $1.50 base or 2.5% overage rounded to nearest $0.05
-  const calculatedIns = getCalculatedInsuranceFee(subtotal);
-  const wantsInsurance = isShipping && document.getElementById("shipping-insurance")?.checked;
-  const insuranceFee = wantsInsurance ? calculatedIns : 0;
-  
   const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + insuranceFee + salesTax;
+  const grandTotal = subtotal + shippingFee + salesTax;
 
   const subtotalDisplay = document.getElementById("checkout-subtotal");
   const feeDisplay = document.getElementById("checkout-shipping-fee");
-  const insDisplay = document.getElementById("checkout-insurance-fee");
-  const insLabelAmount = document.getElementById("insurance-label-amount");
   const taxDisplay = document.getElementById("checkout-tax-fee");
   const totalDisplay = document.getElementById("checkout-grand-total");
 
   if (subtotalDisplay) subtotalDisplay.innerText = `$${subtotal.toFixed(2)}`;
   if (feeDisplay) feeDisplay.innerText = isShipping ? `$${shippingFee.toFixed(2)}` : "$0.00";
-  if (insDisplay) insDisplay.innerText = wantsInsurance ? `$${insuranceFee.toFixed(2)}` : "$0.00";
-  if (insLabelAmount) insLabelAmount.innerText = `+$${calculatedIns.toFixed(2)}`;
   if (taxDisplay) taxDisplay.innerText = `$${salesTax.toFixed(2)}`;
   if (totalDisplay) totalDisplay.innerText = `$${grandTotal.toFixed(2)}`;
 }
@@ -794,7 +769,7 @@ function processOrder(event) {
   const honeypotVal = document.getElementById("website-hp")?.value || "";
   if (honeypotVal.trim() !== "") {
     console.warn("Spam bot trapped by honeypot.");
-    return; // Silently discard
+    return;
   }
 
   // Guard 2: Reject empty carts / zero totals
@@ -806,7 +781,7 @@ function processOrder(event) {
   // Guard 3: Submission Speed-Trap (Bots submit in < 2.5 seconds)
   if (window.checkoutOpenedAt && (Date.now() - window.checkoutOpenedAt) < 2500) {
     console.warn("Submission too fast. Bot detected.");
-    return; // Silently drop sub-second submissions
+    return;
   }
 
   const phoneInput = document.getElementById("cust-phone")?.value || "";
@@ -847,13 +822,8 @@ function processOrder(event) {
 
   const subtotal = cart.total();
   const shippingFee = isShipping ? cart.getShippingFee() : 0;
-  
-  const calculatedIns = getCalculatedInsuranceFee(subtotal);
-  const wantsInsurance = isShipping && document.getElementById("shipping-insurance")?.checked;
-  const insuranceFee = wantsInsurance ? calculatedIns : 0;
-  
   const salesTax = getCalculatedTax(subtotal);
-  const grandTotal = subtotal + shippingFee + insuranceFee + salesTax;
+  const grandTotal = subtotal + shippingFee + salesTax;
   const totalFormatted = "$" + grandTotal.toFixed(2);
   const numericAmount = grandTotal.toFixed(2);
 
@@ -909,17 +879,16 @@ function processOrder(event) {
     customer_name: name,
     customer_email: email,
     customer_phone: formattedPhone,
-    delivery_method: `${deliveryType}${wantsInsurance ? ` + Shipping Protection ($${calculatedIns.toFixed(2)})` : ""}`,
+    delivery_method: deliveryType,
     shipping_address: shippingAddressStr,
     shipping_fee: `$${shippingFee.toFixed(2)}`,
-    shipping_insurance: wantsInsurance ? `$${calculatedIns.toFixed(2)} (Yes)` : "$0.00 (No)",
     sales_tax: `$${salesTax.toFixed(2)}`,
     payment_method: appName,
     order_total: totalFormatted,
     order_items: itemsList
   };
 
-  // 1. Dispatch EmailJS notification
+  // 1. Dispatch EmailJS notification[cite: 22]
   if (typeof emailjs !== "undefined") {
     emailjs.send("service_yqb5b0h", "template_xcvjrjz", templateParams)
       .then(function(response) {
@@ -930,7 +899,7 @@ function processOrder(event) {
       });
   }
 
-  // 2. Auto-log order into Google Sheet
+  // 2. Auto-log order into Google Sheet[cite: 22]
   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxROUil2fSrbRJQiPikhD2rvRSXMorTdJxydJdE9wT9hyBpNtq2isFJRRvXHWNb0Zs9xA/exec";
 
   if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.indexOf("PASTE_") === -1) {
@@ -944,7 +913,7 @@ function processOrder(event) {
     });
   }
 
-  // 3. Populate confirmation screen
+  // 3. Populate confirmation screen[cite: 22]
   if (document.getElementById("conf-order-id")) document.getElementById("conf-order-id").innerText = `#${orderId}`;
   if (document.getElementById("conf-total")) document.getElementById("conf-total").innerText = totalFormatted;
   if (document.getElementById("conf-app-name")) document.getElementById("conf-app-name").innerText = appName;
